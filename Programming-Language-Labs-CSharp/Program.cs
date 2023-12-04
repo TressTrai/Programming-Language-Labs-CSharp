@@ -14,8 +14,9 @@ internal class Program
     {
         Console.WriteLine("Hello, World!");
 
-        var p = new PasswordMaker("ffff ", "!!afdsfas");
+        var p = new PasswordMaker(" dsdasdaааааа" , "авыаываыва");
         Console.WriteLine(p.ToString());
         p.CheckComplexity();
+        p.CheckAllowChar();
     }
 }

@@ -9,18 +9,18 @@ namespace Programming_Language_Labs_CSharp
 {
     internal class PasswordMaker : StringMaker
     {
-        private string derivedField;
+        private string login;
 
         // Конструктор по умолчанию
         public PasswordMaker()
         {
-            derivedField = " ";
+            login = RandomLogin();
         }
 
         // Конструктор с параметрами
-        public PasswordMaker(string derivedValue, string baseValue) : base(baseValue)
+        public PasswordMaker(string userLogin, string userPassword) : base(userPassword)
         {
-            derivedField = derivedValue;
+            login = userLogin;
         }
 
         // Проверка сложности пароля
@@ -39,10 +39,30 @@ namespace Programming_Language_Labs_CSharp
             }
         }
 
+        public void CheckAllowChar()
+        {
+            string cyrylic = "йцукенгшщзхъфывапролджэячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ";
+            if (login.IndexOfAny(cyrylic.ToCharArray()) != -1)
+            {
+                Console.WriteLine("В логине содержаться элементы кирилицы!");
+                login = RandomLogin();
+                Console.WriteLine($"Ваш новый логин: {login}");
+            }
+
+            else
+                Console.WriteLine("Строка без кириллицы.");
+        }
+
+        public string RandomLogin()
+        {
+            Random random = new Random();
+            int id = random.Next(1000, 9999);
+            return "user" + id.ToString();
+        }
 
         public override string ToString()
         {
-            return $"Логин: {derivedField}" + "\n" + $"Пароль: {base.ToString()}" ;
+            return $"Логин: {login}" + "\n" + $"Пароль: {base.ToString()}" ;
         }
     }
 }
