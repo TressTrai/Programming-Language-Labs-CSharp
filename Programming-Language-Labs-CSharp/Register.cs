@@ -7,18 +7,18 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Programming_Language_Labs_CSharp
 {
-    internal class PasswordMaker : StringMaker
+    internal class Register : StringMaker
     {
         private string login;
 
         // Конструктор по умолчанию
-        public PasswordMaker()
+        public Register()
         {
             login = RandomLogin();
         }
 
         // Конструктор с параметрами
-        public PasswordMaker(string userLogin, string userPassword) : base(userPassword)
+        public Register(string userLogin, string userPassword) : base(userPassword)
         {
             login = userLogin;
         }
@@ -29,13 +29,15 @@ namespace Programming_Language_Labs_CSharp
             int count = base.ToString().Split('!').Length - 1;
 
             if (count < 3) {
-                Console.WriteLine($"Твой пароль слишком прост: {base.ToString()}, знаков восклицания: {count}");
+                Console.WriteLine($"Ваш пароль слишком прост");
+                Console.WriteLine($"Знаков восклицания: {count} < 3");
+                Console.WriteLine($"Генерация нового пароля...");
                 AddThreeExclamation();
                 Console.WriteLine($"Ваш новый пароль: {base.ToString()}");
             }
             else
             {
-                Console.WriteLine("Твой пароль очень сложный");
+                Console.WriteLine("Ваш пароль очень сложный");
             }
         }
 
@@ -50,7 +52,7 @@ namespace Programming_Language_Labs_CSharp
             }
 
             else
-                Console.WriteLine("Строка без кириллицы.");
+                Console.WriteLine("Ваш логин подходит!");
         }
 
         public string RandomLogin()

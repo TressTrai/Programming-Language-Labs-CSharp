@@ -29,7 +29,7 @@ namespace Programming_Language_Labs_CSharp
         }
 
         // Метод для добавления трех восклицательных знаков в начало строки
-        protected void AddThreeExclamation()
+        public void AddThreeExclamation()
         {
             data = "!!!" + data;
         }
