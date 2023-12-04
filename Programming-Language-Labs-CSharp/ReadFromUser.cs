@@ -34,8 +34,6 @@ namespace Programming_Language_Labs_CSharp
                 }
             } while (true);
 
-
-            Console.WriteLine();
             return result;
         }
 
@@ -64,7 +62,6 @@ namespace Programming_Language_Labs_CSharp
                 }
             } while (true);
 
-            Console.WriteLine();
             return result;
         }
 

@@ -16,22 +16,14 @@ namespace Programming_Language_Labs_CSharp
         public uint Rubles
         {
             get { return rubles; }
-            set
-            {
-                if (value < 0)
-                    rubles = 0;
-                else
-                    rubles = value;
-            }
+            set { rubles = value; }
         }
         public byte Kopeeks
         {
             get { return kopeeks; }
             set
             {
-                if (value < 0)
-                    kopeeks = 0;
-                else if (value < 100)
+                if (value < 100)
                     kopeeks = value;
                 else
                     kopeeks = (byte)(value % 100);
@@ -56,7 +48,7 @@ namespace Programming_Language_Labs_CSharp
         // Перегруженный методе для вывода строки
         public override string ToString()
         {
-            return $"{Rubles} рублей и {Kopeeks} копеек\n";
+            return $"{Rubles} рублей и {Kopeeks} копеек";
         }
         
         // Метод добавляющий копейки
@@ -126,7 +118,7 @@ namespace Programming_Language_Labs_CSharp
         {
             // Если нет ухода в минус по рублям
             if ((int)rub - (int)money.Rubles >= 0)
-                return new Money(rub - money.Rubles - 1, (byte)(100 - (int)money.Kopeeks));
+                return new Money(rub - money.Rubles, money.Kopeeks);
             else
                 return new Money(0, 0);
         }
