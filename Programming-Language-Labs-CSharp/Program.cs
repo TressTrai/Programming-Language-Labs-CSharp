@@ -28,8 +28,11 @@ internal class Program
 
         uint user_add_kop = ReadFromUser.UInt("Добавление копеек");
 
-        user_money.AddKopeeks(user_add_kop);
+        //user_money.AddKopeeks(user_add_kop);
 
         Console.WriteLine($"Итоговая сумма: {user_money.ToString()}");
+
+        Console.WriteLine((user_money - 10000).ToString());
+        Console.WriteLine((10000 - user_money).ToString());
     }
 }
