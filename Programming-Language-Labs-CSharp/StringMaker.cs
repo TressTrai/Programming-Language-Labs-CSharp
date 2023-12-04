@@ -8,30 +8,36 @@ namespace Programming_Language_Labs_CSharp
 {
     internal class StringMaker
     {
-        private string baseField;
+        private string data;
 
         // Конструктор по умолчанию
         public StringMaker()
         {
-            baseField = "Default";
+            data = "qwerty";
+        }
+
+        // Конструктор для строки
+        public StringMaker(string other)
+        {
+            data = other;
         }
 
         // Конструктор копирования
         public StringMaker(StringMaker other)
         {
-            baseField = other.baseField;
+            data = other.data;
         }
 
         // Метод для добавления трех восклицательных знаков в начало строки
-        public void AddThreeExclamation()
+        protected void AddThreeExclamation()
         {
-            baseField = "!!!" + baseField;
+            data = "!!!" + data;
         }
 
         // Перегрузка метода ToString
         public override string ToString()
         {
-            return $"Name: {baseField}";
+            return $"{data}";
         }
-    } //password
+    }
 }

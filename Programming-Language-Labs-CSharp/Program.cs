@@ -6,6 +6,16 @@
 //смысл имеют поля; реализовать конструкторы; предложить и реализовать
 //2-3 метода). Протестировать все конструкторы и другие методы базового и
 //дочернего классов.
+using Programming_Language_Labs_CSharp;
 
+internal class Program
+{
+    internal static void Main(string[] args)
+    {
+        Console.WriteLine("Hello, World!");
 
-Console.WriteLine("Hello, World!");
+        var p = new PasswordMaker("ffff ", "!!afdsfas");
+        Console.WriteLine(p.ToString());
+        p.CheckComplexity();
+    }
+}
