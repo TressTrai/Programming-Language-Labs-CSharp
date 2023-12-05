@@ -37,9 +37,8 @@ namespace Programming_Language_Labs_CSharp
             }
         }
 
-        public static void ReadBinaryFile(string filePath)
+        public static void OutputBinaryFile(string filePath)
         {
-
             // Проверяем, существует ли файл
             if (File.Exists(filePath))
             {
@@ -64,6 +63,40 @@ namespace Programming_Language_Labs_CSharp
             {
                 Console.WriteLine("Файл не существует.");
             }
+        }
+
+        public static int MultiplyOddMinus(string filePath)
+        {
+            int totalMultiply = 1;
+
+            // Проверяем, существует ли файл
+            if (File.Exists(filePath))
+            {
+                // Создаем и открываем файловый поток для чтения из бинарного файла
+                using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
+                {
+                    // Создаем объект BinaryReader для чтения данных из бинарного файла
+                    using (BinaryReader reader = new BinaryReader(fileStream))
+                    {
+                        // Читаем данные из файла
+                        while (fileStream.Position < fileStream.Length)
+                        {
+                            int value = reader.ReadInt32();
+                            if (value < 0 && value % 2 == 1)
+                            {
+                                totalMultiply *= value;
+                            }
+                        }
+                    }
+                }
+
+                Console.WriteLine("Чтение бинарного файла завершено.");
+            }
+            else
+            {
+                Console.WriteLine("Файл не существует.");
+            }
+            return totalMultiply;
         }
     }
 }
