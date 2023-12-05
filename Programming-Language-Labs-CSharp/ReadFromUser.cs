@@ -23,14 +23,14 @@ namespace Programming_Language_Labs_CSharp
                 bool isParsed = uint.TryParse(input, out result);
 
                 // Проверяем, что введено положительное число
-                if (isParsed && result > 0)
+                if (isParsed)
                 {
                     // Введено корректное положительное число
                     break;
                 }
                 else
                 {
-                    Console.WriteLine("   Ошибка! Введите корректное значение [1; 4294967295]");
+                    Console.WriteLine("   Ошибка! Введите корректное значение [0; 4294967295]");
                 }
             } while (true);
 

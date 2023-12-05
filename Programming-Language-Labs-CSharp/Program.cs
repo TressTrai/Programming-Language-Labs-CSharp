@@ -15,6 +15,7 @@ internal class Program
         Console.WriteLine(money1.ToString());
 
         Console.WriteLine("\nКонструктор с сеттером по копейкам");
+        Console.WriteLine("Рублей: 1 Копеек: 201");
         Money money2 = new Money(1, 201);
         Console.WriteLine(money2.ToString());
 
