@@ -58,7 +58,7 @@ namespace Programming_Language_Labs_CSharp
                 }
                 else
                 {
-                    Console.WriteLine("   Ошибка! Введите корректное значение [1; 255]");
+                    Console.WriteLine("   Ошибка! Введите корректное значение [0; 255]");
                 }
             } while (true);
 
