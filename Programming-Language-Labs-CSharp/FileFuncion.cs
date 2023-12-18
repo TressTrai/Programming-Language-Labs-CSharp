@@ -19,7 +19,7 @@ namespace Programming_Language_Labs_CSharp
 
         }
 
-        public static void FillBinaryFile(string filePath)
+        public static void FillBinaryFile(string filePath, int quantity, int diapozon)
         {
             using (FileStream fileStream = new FileStream(filePath, FileMode.Append))
             {
@@ -28,9 +28,9 @@ namespace Programming_Language_Labs_CSharp
                 {
                     // Записываем рандомные значения в файл
                     Random random = new Random();
-                    for (int i = 0; i < 10; i++)
+                    for (int i = 0; i < quantity; i++)
                     {
-                        int randomNumber = random.Next(-1000, 1000);
+                        int randomNumber = random.Next(-diapozon, diapozon);
                         writer.Write(randomNumber);
                     }
                 }

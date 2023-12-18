@@ -8,7 +8,7 @@ internal class Program
         // Бинарные файлы, содержащие числовые данные (исходный файл заполнить случайными данными, заполнение организовать отдельным методом)
         // Вычислить произведение нечетных отрицательных компонент файла.
         FileFuncion.CreateBinaryFile("task1.bin");
-        FileFuncion.FillBinaryFile("task1.bin");
+        FileFuncion.FillBinaryFile("task1.bin", 10, 1000);
         FileFuncion.OutputBinaryFile("task1.bin");
 
         // 2 задание
