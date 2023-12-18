@@ -10,6 +10,7 @@ internal class Program
         FileFuncion.CreateBinaryFile("task1.bin");
         FileFuncion.FillBinaryFile("task1.bin", 10, 1000);
         FileFuncion.OutputBinaryFile("task1.bin");
+        Console.WriteLine($"Произведение нечетных отрицательных компонент файла: %i", FileFuncion.MultiplyOddMinus("task1.bin"));
 
         // 2 задание
         // Бинарные файлы, содержащие числовые данные (исходный файл заполнить случайными данными, заполнение организовать отдельным методом)
