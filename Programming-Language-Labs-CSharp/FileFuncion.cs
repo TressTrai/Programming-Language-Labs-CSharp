@@ -35,7 +35,7 @@ namespace Programming_Language_Labs_CSharp
                     }
                 }
             }
-        }
+        } //Проверка на то, что он существует
 
         public static void OutputBinaryFile(string filePath)
         {
@@ -97,6 +97,23 @@ namespace Programming_Language_Labs_CSharp
                 Console.WriteLine("Файл не существует.");
             }
             return totalMultiply;
+        }
+
+        public static void CalculateProductOfNegativeOddNumbers()
+        {
+            using (BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open)))
+            {
+                int product = 1;
+                while (reader.BaseStream.Position < reader.BaseStream.Length)
+                {
+                    int value = reader.ReadInt32();
+                    if (value < 0 && value % 2 != 0)
+                    {
+                        product *= value;
+                    }
+                }
+                Console.WriteLine("Произведение нечетных отрицательных чисел из файла: " + product);
+            }
         }
     }
 }
