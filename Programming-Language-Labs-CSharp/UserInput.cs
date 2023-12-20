@@ -65,5 +65,34 @@ namespace Programming_Language_Labs_CSharp
             return result;
         }
 
+        public static int Int(string msg)
+        {
+            Console.WriteLine($"{msg}");
+            int result;
+
+            do
+            {
+                Console.Write("     Введите целочисленное число: ");
+                string input = Console.ReadLine();
+
+                // Пытаемся преобразовать введенное значение в int
+                bool isParsed = int.TryParse(input, out result);
+
+                // Проверяем, что введено положительное число
+                if (isParsed)
+                {
+                    // Введено корректное положительное число
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("   Ошибка! Введите корректное значение");
+                }
+            } while (true);
+
+            return result;
+        }
+
+
     }
 }
