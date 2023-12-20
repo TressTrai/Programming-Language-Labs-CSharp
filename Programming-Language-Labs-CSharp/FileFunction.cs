@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Programming_Language_Labs_CSharp
 {
-    internal class FileFuncion
+    internal class FileFunction
     {
         public static void FillBinaryFile(string filePath, int quantity, int diapozon)
         {

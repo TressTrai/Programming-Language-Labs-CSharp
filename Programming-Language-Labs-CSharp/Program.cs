@@ -6,18 +6,18 @@ internal class Program
 
     internal static void Main(string[] args)
     {
-        FileFuncion.FillBinaryFile(filePath, 10, 1000);
-        FileFuncion.OutputBinaryFile(filePath);
+        FileFunction.FillBinaryFile(filePath, 10, 1000);
+        FileFunction.OutputBinaryFile(filePath);
 
         // 1 задние
         // Бинарные файлы, содержащие числовые данные (исходный файл заполнить случайными данными, заполнение организовать отдельным методом)
         // Вычислить произведение нечетных отрицательных компонент файла.
-        FileFuncion.CalculateProductOfNegativeOddNumbers(filePath);
+        FileFunction.CalculateProductOfNegativeOddNumbers(filePath);
 
         // 2 задание
         // Бинарные файлы, содержащие числовые данные (исходный файл заполнить случайными данными, заполнение организовать отдельным методом)
         // Скопировать элементы заданного файла в квадратную матрицу размером n×n(если элементов файла недостает, заполнить оставшиеся элементы матрицы нулями).Поменять местами в каждом столбце минимальный и максимальный элементы.
-        FileFuncion.FillMatrix(filePath);
+        FileFunction.FillMatrix(filePath);
 
         // 3 задание
         // Бинарные файлы, содержащие величины типа struct (заполнение исходного файла организовать отдельным методом) - сериализация

@@ -24,3 +24,21 @@ public struct Luggage
 
     }
 }
+
+[Serializable]
+public class Passenger
+{
+    private Luggage[] luggageList;
+
+    public Luggage[] LuggageList {
+        get
+        {
+            return luggageList;
+        }
+        set
+        {
+            luggageList = value;
+        }
+
+    }
+}
