@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -164,6 +165,88 @@ namespace Programming_Language_Labs_CSharp
                 Console.Write("\n");
             }
         }
+
+        // Заполнение бинароного файлa багажа
+        public static bool FillBinaryFileLaggage(string filePath)
+        {
+            Luggage[] luggages = new Luggage[5];
+
+            luggages[0] = new Luggage("Машинка", 2000);
+            luggages[1] = new Luggage("Кукла", 1500);
+            luggages[2] = new Luggage("Мяч", 500);
+            luggages[3] = new Luggage("Паровозик", 3000);
+            luggages[4] = new Luggage("Валорант", 1);
+
+            Console.WriteLine("Сведения о всех игрушках: ");
+            foreach (Luggage luggage in luggages)
+            {
+                Console.WriteLine(luggage.ToString());
+            }
+            Console.WriteLine();
+
+            try
+            {
+                // Создание BinaryWriter для записи в бинарный файл
+                BinaryWriter writer = new BinaryWriter(File.Open(filePath, FileMode.Create));
+
+                // Создание BinaryFormatter для сериализации массива игрушек
+                BinaryFormatter formatter = new BinaryFormatter();
+
+                // Сериализация массива и запись в файл
+                formatter.Serialize(writer.BaseStream, luggages);
+
+                writer.Flush();
+                writer.Close();
+
+                Console.WriteLine();
+                Console.WriteLine("Файл со сведениями о багаже сохранён по пути:\n" + Path.GetFullPath(filePath));
+                Console.WriteLine();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Вывод сообщения об ошибке в случае исключения
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        // Поиск и вывод списка подходящих игрушек
+        public static void AppropriateLuggage(string filePath)
+        {
+            try
+            {
+                // Создание BinaryReader для чтения из бинарного файла
+                BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open));
+
+                // Создание BinaryFormatter для десериализации данных
+                BinaryFormatter formatter = new BinaryFormatter();
+
+                // Десериализация массива игрушек из файла
+                Luggage[]? luggages = formatter.Deserialize(reader.BaseStream) as Luggage[];
+                reader.Close();
+
+                // Переменные для формирования списка подходящих игрушек и подсчета их количества
+                string listLuggage = "";
+                int count = 0;
+
+                // Найти число пассажиров, имеющих более двух единиц багажа и число пассажиров, количество единиц багажа которых превосходит среднее число единиц багажа.
+                foreach (Luggage luggage in luggages)
+                {
+                    
+                }
+
+                Console.WriteLine("Список подходящих пассажиров: \n" + listLuggage);
+            }
+            catch (Exception ex)
+            {
+                // Вывод сообщения об ошибке в случае исключения
+                Console.WriteLine(ex.Message);
+                return;
+            }
+        }
+
+
     }
 
 }
