@@ -61,7 +61,7 @@ namespace Programming_Language_Labs_CSharp
             }
         }
 
-        public static void CalculateProductOfNegativeOddNumbers(string filePath)
+        private static void CalculateProductOfNegativeOddNumbers(string filePath)
         {
             using (BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open)))
             {
@@ -80,7 +80,7 @@ namespace Programming_Language_Labs_CSharp
             }
         }
 
-        public static bool FillMatrix(string filePath)
+        private static bool FillMatrix(string filePath)
         {
             int n = ReadFromUser.Int("Введите размерность матрицы nxn: ");
             int index = 0;
@@ -118,20 +118,19 @@ namespace Programming_Language_Labs_CSharp
         }
 
         // Поменять местами в каждом столбце минимальный и максимальный элементы.
-        public static int[,] ChangeMaxMinElInColumn(int[,] matrix, int n)
+        private static int[,] ChangeMaxMinElInColumn(int[,] matrix, int n)
         {
-            int column = 0;
-            int iMax = 0;
-            int maxValue = 0;
-            int iMin = -1000000;
-            int minValue = 1000000;
+            int iMax;
+            int maxValue;
+            int iMin;
+            int minValue;
             int[,] newMatrix = matrix;
 
             // Перебор столбцов матрицы
             for (int j = 0; j < n; j++)
             {
-                maxValue = 0;
-                minValue = 1000000000;
+                maxValue = -1000000;
+                minValue = 1000000;
 
                 iMax = 0;
                 iMin = 0;
@@ -160,7 +159,7 @@ namespace Programming_Language_Labs_CSharp
         }
 
         // Более менее красивый вывод матрицы
-        public static void PrintMatrix(int[,] matrix, int n)
+        private static void PrintMatrix(int[,] matrix, int n)
         {
             for (int i = 0; i < n; i++)
             {
@@ -173,7 +172,7 @@ namespace Programming_Language_Labs_CSharp
         }
 
         // Заполнение бинароного файлa багажа
-        public static bool FillBinaryFileLaggage(string filePath)
+        private static bool FillBinaryFileLaggage(string filePath)
         {
             Passenger[] passengers = new Passenger[5];
 
@@ -218,7 +217,7 @@ namespace Programming_Language_Labs_CSharp
         }
 
         // Поиск и вывод списка подходящих игрушек
-        public static void AppropriateLuggage(string filePath)
+        private static void AppropriateLuggage(string filePath)
         {
             try
             {
@@ -266,19 +265,27 @@ namespace Programming_Language_Labs_CSharp
         }
         public static void Task3(string filePath)
         {
-            
+            Console.WriteLine("\n------------------------------ Задание 3 ------------------------------");
+
+            Console.WriteLine("-----------------------------------------------------------------------");
         }
         public static void Task4(string filePath)
         {
-            
+            Console.WriteLine("\n------------------------------ Задание 4 ------------------------------");
+
+            Console.WriteLine("-----------------------------------------------------------------------");
         }
         public static void Task5(string filePath)
         {
-            
+            Console.WriteLine("\n------------------------------ Задание 5 ------------------------------");
+
+            Console.WriteLine("-----------------------------------------------------------------------");
         }
         public static void Task6(string filePath)
         {
-            
+            Console.WriteLine("\n------------------------------ Задание 6 ------------------------------");
+
+            Console.WriteLine("-----------------------------------------------------------------------");
         }
     }
 

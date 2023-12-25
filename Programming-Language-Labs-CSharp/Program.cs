@@ -53,7 +53,7 @@ internal class Program
                     FileFunction.Task2(filePath);
                     break;
                 case 3:
-                    Console.WriteLine("3");
+                    // Console.WriteLine("3");
 
                     // 3 задание
                     // Бинарные файлы, содержащие величины типа struct (заполнение исходного файла организовать отдельным методом) - сериализация
@@ -62,7 +62,7 @@ internal class Program
                     FileFunction.Task3(filePath);
                     break;
                 case 4:
-                    Console.WriteLine("4");
+                    // Console.WriteLine("4");
 
                     // 4 задание
                     // Решить задачу с использованием структуры «текстовый файл» (в файле хранятся целые числа по одному в строке)
@@ -70,7 +70,7 @@ internal class Program
                     FileFunction.Task4(filePath);
                     break;
                 case 5:
-                    Console.WriteLine("5");
+                    // Console.WriteLine("5");
 
                     // 5 задание 
                     // Решить задачу с использованием структуры «текстовый файл» (в файле хранятся целые числа по несколько в строке)
@@ -78,7 +78,7 @@ internal class Program
                     FileFunction.Task5(filePath);
                     break;
                 case 6:
-                    Console.WriteLine("6");
+                    // Console.WriteLine("6");
 
                     // 6 задание 
                     // Решить задачу с использованием структуры «текстовый файл» (в файле хранится текст)
