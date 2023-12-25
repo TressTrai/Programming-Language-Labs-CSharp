@@ -2,8 +2,9 @@
 
 internal class Program
 {
-    private const string filePath = "task.bin";
+    private const string binaryFilePath = "task.bin";
     private const string filePath3 = "task3.bin";
+    private const string txtFilePath = "task.txt";
 
     internal static void Main(string[] args)
     {
@@ -11,8 +12,8 @@ internal class Program
         int userSwitch = 1;
 
         // Создание и заполнени Бинарного файла
-        FileFunction.FillBinaryFile(filePath, 10, 1000);
-        FileFunction.OutputBinaryFile(filePath);
+        FileFunction.FillBinaryFile(binaryFilePath, 10, 1000);
+        FileFunction.OutputBinaryFile(binaryFilePath);
 
         // Основное тело программы
         while (userSwitch != 0)
@@ -41,13 +42,13 @@ internal class Program
                     // 1 задние
                     // Бинарные файлы, содержащие числовые данные (исходный файл заполнить случайными данными, заполнение организовать отдельным методом)
                     // Вычислить произведение нечетных отрицательных компонент файла.
-                    FileFunction.Task1(filePath);
+                    FileFunction.Task1(binaryFilePath);
                     break;
                 case 2:
                     // 2 задание
                     // Бинарные файлы, содержащие числовые данные (исходный файл заполнить случайными данными, заполнение организовать отдельным методом)
                     // Скопировать элементы заданного файла в квадратную матрицу размером n×n(если элементов файла недостает, заполнить оставшиеся элементы матрицы нулями).Поменять местами в каждом столбце минимальный и максимальный элементы.
-                    FileFunction.Task2(filePath);
+                    FileFunction.Task2(binaryFilePath);
                     break;
                 case 3:
                     // 3 задание
@@ -60,26 +61,26 @@ internal class Program
                     // 4 задание
                     // Решить задачу с использованием структуры «текстовый файл» (в файле хранятся целые числа по одному в строке)
                     // В файле найти сумму квадратов элементов
-                    FileFunction.Task4(filePath);
+                    FileFunction.Task4(txtFilePath);
                     break;
                 case 5:
                     // 5 задание 
                     // Решить задачу с использованием структуры «текстовый файл» (в файле хранятся целые числа по несколько в строке)
                     // Вычислить произведение элементов
-                    FileFunction.Task5(filePath);
+                    FileFunction.Task5(txtFilePath);
                     break;
                 case 6:
                     // 6 задание 
                     // Решить задачу с использованием структуры «текстовый файл» (в файле хранится текст)
                     // Переписать в другой файл строки, имеющие заданную длину m.
-                    FileFunction.Task6(filePath);
+                    FileFunction.Task6(txtFilePath);
                     break;
 
                 case 7:
-                    FileFunction.FillBinaryFile(filePath, 10, 1000);
+                    FileFunction.FillBinaryFile(binaryFilePath, 10, 1000);
                     break;
                 case 8:
-                    FileFunction.OutputBinaryFile(filePath);
+                    FileFunction.OutputBinaryFile(binaryFilePath);
                     break;
                 case 0:
                     Console.WriteLine("Выход...");

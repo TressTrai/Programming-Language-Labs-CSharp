@@ -310,6 +310,47 @@ namespace Programming_Language_Labs_CSharp
 
         }
 
+        public static void FillTxtFile(string filePath, int quantity, int diapozon)
+        {
+            try
+            {
+                StreamWriter writer = new StreamWriter(File.Open(filePath, FileMode.Create));
+                Random random = new Random();
+                for (int i = 0; i < quantity; i++)
+                {
+                    int number = random.Next(-diapozon, diapozon);
+                    writer.Write(number);
+                    writer.WriteLine("");
+                }
+                writer.Close();
+
+                Console.WriteLine("Создан текстовый файл, по пути: " + Path.GetFullPath(filePath));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private static void SumSquare(string filePath)
+        {
+            int result = 0;
+            string line;
+            int temp;
+
+            using (StreamReader reader = new StreamReader(File.Open(filePath, FileMode.Open)))
+            {
+                while ((line = reader.ReadLine()) != null)
+                {
+                    int.TryParse(line, out temp);
+                    result += (temp * temp);
+                }
+                reader.Close();
+            }
+
+            Console.WriteLine($"Сумма квадратов элементов: {result}");
+        }
+
         public static void Task1(string filePath)
         {
             Console.WriteLine("\n------------------------------ Задание 1 ------------------------------");
@@ -331,7 +372,8 @@ namespace Programming_Language_Labs_CSharp
         public static void Task4(string filePath)
         {
             Console.WriteLine("\n------------------------------ Задание 4 ------------------------------");
-
+            FillTxtFile(filePath, 10, 10);
+            SumSquare(filePath);
             Console.WriteLine("-----------------------------------------------------------------------");
         }
         public static void Task5(string filePath)
