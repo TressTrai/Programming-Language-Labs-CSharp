@@ -126,5 +126,31 @@ namespace Programming_Language_Labs_CSharp
 
             return result;
         }
+
+        public static List<string> StringList(string msg)
+        {
+
+            Console.WriteLine($"{msg}");
+            List<string> result = new List<string>();
+
+            do
+            {
+                string line = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(line))
+                {
+                    if (result.Count == 0)
+                        continue;
+                    else
+                        break;
+                }
+
+                result.Add(line);
+
+            } while (true);
+
+            return result;
+        }
+
     }
 }
