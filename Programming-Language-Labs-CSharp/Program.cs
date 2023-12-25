@@ -13,7 +13,7 @@ internal class Program
         int userSwitch = 1;
 
         // Создание и заполнени Бинарного файла
-        FileFunction.FillBinaryFile(binaryFilePath, 10, 1000);
+        FileFunction.FillBinaryFile(binaryFilePath);
         FileFunction.OutputBinaryFile(binaryFilePath);
 
         // Основное тело программы
@@ -78,7 +78,7 @@ internal class Program
                     break;
 
                 case 7:
-                    FileFunction.FillBinaryFile(binaryFilePath, 10, 1000);
+                    FileFunction.FillBinaryFile(binaryFilePath);
                     break;
                 case 8:
                     FileFunction.OutputBinaryFile(binaryFilePath);

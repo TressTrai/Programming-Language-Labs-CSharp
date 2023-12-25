@@ -10,15 +10,20 @@ namespace Programming_Language_Labs_CSharp
 {
     internal class FileFunction
     {
-        public static void FillBinaryFile(string filePath, int quantity, int diapozon)
+        public static void FillBinaryFile(string filePath)
         {
+            Console.WriteLine("Создание бинарного файла...");
+
+            uint quantity = ReadFromUser.UInt("Введите количество элементов: ");
+            uint diapozon = ReadFromUser.UInt("\nВведите диапозон элементов: ");
+
             try
             {
                 BinaryWriter binaryWriter = new BinaryWriter(File.Open(filePath, FileMode.Create));
                 Random random = new Random();
                 for (int i = 0; i < quantity; i++)
                 {
-                    int number = random.Next(-diapozon, diapozon);
+                    int number = random.Next(-(int)diapozon, (int)diapozon);
                     binaryWriter.Write(number);
                 }
                 binaryWriter.Close();
@@ -33,38 +38,33 @@ namespace Programming_Language_Labs_CSharp
 
         public static void OutputBinaryFile(string filePath)
         {
-            // Проверяем, существует ли файл
-            if (File.Exists(filePath))
+            int temp = 0;
+
+            Console.Write("\nБинарный файл: ");
+
+            try
             {
-                // Создаем и открываем файловый поток для чтения из бинарного файла
-                using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
+                BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open));
+                while (reader.BaseStream.Position < reader.BaseStream.Length)
                 {
-                    // Создаем объект BinaryReader для чтения данных из бинарного файла
-                    using (BinaryReader reader = new BinaryReader(fileStream))
-                    {
-
-                        Console.Write("Бинарный файл: ");
-                        // Читаем данные из файла
-                        while (fileStream.Position < fileStream.Length)
-                        {
-                            int value = reader.ReadInt32();
-                            Console.Write($"{value} ");
-                        }
-                    }
+                    temp = reader.ReadInt32();
+                    Console.Write($"{temp} ");
                 }
-
-                Console.WriteLine("");
+                reader.Close();
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Файл не существует.");
+                Console.WriteLine(ex.Message);
             }
+
+            Console.WriteLine();
         }
 
         private static void CalculateProductOfNegativeOddNumbers(string filePath)
         {
-            using (BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open)))
+            try
             {
+                BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open));
                 int product = 1;
                 Console.Write("Произведение нечетных отрицательных чисел: ");
                 while (reader.BaseStream.Position < reader.BaseStream.Length)
@@ -77,6 +77,11 @@ namespace Programming_Language_Labs_CSharp
                     }
                 }
                 Console.WriteLine("1 = " + product);
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -112,7 +117,7 @@ namespace Programming_Language_Labs_CSharp
             }
             catch (Exception ex)
             {
-                Console.WriteLine();
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
@@ -336,19 +341,23 @@ namespace Programming_Language_Labs_CSharp
         {
             int result = 0;
             string line;
-            int temp;
+            int el;
 
-            using (StreamReader reader = new StreamReader(File.Open(filePath, FileMode.Open)))
+            try
             {
+                StreamReader reader = new StreamReader(File.Open(filePath, FileMode.Open));
                 while ((line = reader.ReadLine()) != null)
                 {
-                    int.TryParse(line, out temp);
-                    result += (temp * temp);
+                    int.TryParse(line, out el);
+                    result += (el * el);
                 }
                 reader.Close();
+                Console.WriteLine($"Сумма квадратов элементов: {result}");
+            } 
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
-
-            Console.WriteLine($"Сумма квадратов элементов: {result}");
         }
 
         public static void FillTxtFilesSeveralOnLine(string filePath, int quantity, int diapozon)
@@ -381,29 +390,34 @@ namespace Programming_Language_Labs_CSharp
         {
             int result = 1;
             string line;
-            int temp;
+            int el;
 
-            using (StreamReader reader = new StreamReader(File.Open(filePath, FileMode.Open)))
+            try
             {
+                StreamReader reader = new StreamReader(File.Open(filePath, FileMode.Open));
                 while ((line = reader.ReadLine()) != null)
                 {
                     foreach (string str in line.Split(' '))
                     {
-                        if (int.TryParse(str, out temp))
+                        if (int.TryParse(str, out el))
                         {
-                            result *= temp;
+                            result *= el;
                         }
                     }
                 }
                 reader.Close();
+                Console.WriteLine($"Произведение элементов: {result}");
             }
-
-            Console.WriteLine($"Произведение элементов: {result}");
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
+            }
         }
 
         public static void FillTxtFilesByText(string filePath)
         {
-            Console.WriteLine("\nНапишите строки файла. Чтобы закончить напишите пустую строку.\nВведите содержание файла.\n\n");
+            Console.WriteLine("\nНапишите строки файла. Чтобы закончить напишите пустую строку.\nВведите содержание файла.\n");
 
             try
             {
@@ -415,9 +429,9 @@ namespace Programming_Language_Labs_CSharp
                 }
                 writer.Close();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine("\nОшибка при заполнении текстового файла");
+                Console.WriteLine(ex.Message);
                 return;
             }
         }
@@ -446,9 +460,9 @@ namespace Programming_Language_Labs_CSharp
                 writer.Close();
                 reader.Close();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine("\nОшибка при переносе строк между файлами");
+                Console.WriteLine(ex.Message);
                 return;
             }
         }
