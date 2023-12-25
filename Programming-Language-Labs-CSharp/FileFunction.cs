@@ -172,7 +172,7 @@ namespace Programming_Language_Labs_CSharp
         }
 
         // Заполнение бинароного файлa багажа
-        private static void FillBinaryFilePassangers(string filePath)
+        private static Passenger[] FillBinaryFilePassangers(string filePath)
         {
             Passenger[] passengers = new Passenger[5];
 
@@ -186,17 +186,18 @@ namespace Programming_Language_Labs_CSharp
 
             if (!PassangersToBinary(filePath, passengers))
             {
-                return;
+                return null;
             }
 
             Passenger[] passangersFromFile = BinaryToPassangers(filePath);
 
             if (passangersFromFile == null)
             {
-                return;
+                return null;
             }
 
             BinaryPassangersOutput(passangersFromFile);
+            return passangersFromFile;
         }
 
         private static bool PassangersToBinary(string filePath, Passenger[] passengers)
@@ -251,39 +252,62 @@ namespace Programming_Language_Labs_CSharp
             }
             Console.WriteLine();
         }
-        // Поиск и вывод списка подходящих игрушек
-        private static void AppropriateLuggage(string filePath)
+
+        // Поиск и вывод списка подходящих пассажиров
+        private static void AppropriatePassangers(string filePath, Passenger[] passengers)
         {
-            try
+            int luggageCount = 0;
+            int moreThan2 = 0;
+
+            foreach (Passenger passanger in passengers)
             {
-                // Создание BinaryReader для чтения из бинарного файла
-                BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open));
-
-                // Создание BinaryFormatter для десериализации данных
-                BinaryFormatter formatter = new BinaryFormatter();
-
-                // Десериализация массива игрушек из файла
-                Passenger[]? passengers = formatter.Deserialize(reader.BaseStream) as Passenger[];
-                reader.Close();
-
-                // Переменные для формирования списка подходящих игрушек и подсчета их количества
-                string listLuggage = "";
-                int count = 0;
-
-                // Найти число пассажиров, имеющих более двух единиц багажа и число пассажиров, количество единиц багажа которых превосходит среднее число единиц багажа.
-                foreach (Passenger passenger in passengers)
+                int k = 0;
+                foreach ((string item, int quantity) in passanger.Luggage)
                 {
-                    
+                    k += 1;
+                }
+                if (k > 2)
+                {
+                    moreThan2++;
+
+                }
+                luggageCount += k;
+            }
+            if (moreThan2 != 0)
+
+                Console.WriteLine($"Количество пассажиров, имеющих более двух единиц багажа: {moreThan2}");
+            else
+            {
+                Console.WriteLine("Нет пассажиров, имеющих более двух единиц багажа");
+            }
+
+            Console.WriteLine();
+
+            float median = ((float)luggageCount) / passengers.Length;
+            int moreThanMedian = 0;
+            foreach (Passenger passanger in passengers)
+            {
+                int k = 0;
+                foreach ((string item, int quantity) in passanger.Luggage)
+                {
+                    k += 1;
+                }
+                if (k > median)
+                {
+                    moreThanMedian++;
+
                 }
 
-                Console.WriteLine("Список подходящих пассажиров: \n" + listLuggage);
             }
-            catch (Exception ex)
+
+            if (moreThan2 != 0)
+
+                Console.WriteLine($"Количество пассажиров, имеющих количество багажа больше среднего ({median}): {moreThanMedian}");
+            else
             {
-                // Вывод сообщения об ошибке в случае исключения
-                Console.WriteLine(ex.Message);
-                return;
+                Console.WriteLine("Нет пассажиров, имеющих количество багажа больше среднего");
             }
+
         }
 
         public static void Task1(string filePath)
@@ -301,7 +325,7 @@ namespace Programming_Language_Labs_CSharp
         public static void Task3(string filePath)
         {
             Console.WriteLine("\n------------------------------ Задание 3 ------------------------------");
-            FillBinaryFilePassangers(filePath);
+            AppropriatePassangers(filePath, FillBinaryFilePassangers(filePath));
             Console.WriteLine("-----------------------------------------------------------------------");
         }
         public static void Task4(string filePath)
