@@ -310,7 +310,7 @@ namespace Programming_Language_Labs_CSharp
 
         }
 
-        public static void FillTxtFile(string filePath, int quantity, int diapozon)
+        public static void FillTxtFileOneOnLine(string filePath, int quantity, int diapozon)
         {
             try
             {
@@ -351,6 +351,56 @@ namespace Programming_Language_Labs_CSharp
             Console.WriteLine($"Сумма квадратов элементов: {result}");
         }
 
+        public static void FillTxtFilesSeveralOnLine(string filePath, int quantity, int diapozon)
+        {
+            try
+            {
+                StreamWriter writer = new StreamWriter(File.Open(filePath, FileMode.Create));
+                Random random = new Random();
+                Random random2 = new Random();
+                for (int i = 0; i < quantity; i++)
+                {
+                    int number = random.Next(-diapozon, diapozon);
+                    writer.Write(number + " ");
+                    if (random2.Next(1, 5) == 2)
+                    {
+                        writer.WriteLine();
+                    }
+                }
+                writer.Close();
+
+                Console.WriteLine("Создан текстовый файл, по пути: " + Path.GetFullPath(filePath));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private static void Multiply(string filePath)
+        {
+            int result = 1;
+            string line;
+            int temp;
+
+            using (StreamReader reader = new StreamReader(File.Open(filePath, FileMode.Open)))
+            {
+                while ((line = reader.ReadLine()) != null)
+                {
+                    foreach (string str in line.Split(' '))
+                    {
+                        if (int.TryParse(str, out temp))
+                        {
+                            result *= temp;
+                        }
+                    }
+                }
+                reader.Close();
+            }
+
+            Console.WriteLine($"Произведение элементов: {result}");
+        }
+
         public static void Task1(string filePath)
         {
             Console.WriteLine("\n------------------------------ Задание 1 ------------------------------");
@@ -372,14 +422,15 @@ namespace Programming_Language_Labs_CSharp
         public static void Task4(string filePath)
         {
             Console.WriteLine("\n------------------------------ Задание 4 ------------------------------");
-            FillTxtFile(filePath, 10, 10);
+            FillTxtFileOneOnLine(filePath, 10, 10);
             SumSquare(filePath);
             Console.WriteLine("-----------------------------------------------------------------------");
         }
         public static void Task5(string filePath)
         {
             Console.WriteLine("\n------------------------------ Задание 5 ------------------------------");
-
+            FillTxtFilesSeveralOnLine(filePath, 10, 10);
+            Multiply(filePath);
             Console.WriteLine("-----------------------------------------------------------------------");
         }
         public static void Task6(string filePath)
