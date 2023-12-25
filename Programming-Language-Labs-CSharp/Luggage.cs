@@ -20,7 +20,7 @@ struct Passenger
         string result = $"Имя: {this.name}\nБагаж:";
         foreach ((string item, int weight) in this.luggage)
         {
-            result += $"\n- Предмет: {item}, Масса: {weight}";
+            result += $"\n-Предмет: {item}, Вес: {weight} кг";
         }
         return result;
     }

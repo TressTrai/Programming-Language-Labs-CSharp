@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Programming_Language_Labs_CSharp
 {
@@ -172,39 +172,44 @@ namespace Programming_Language_Labs_CSharp
         }
 
         // Заполнение бинароного файлa багажа
-        private static bool FillBinaryFileLaggage(string filePath)
+        private static void FillBinaryFilePassangers(string filePath)
         {
             Passenger[] passengers = new Passenger[5];
 
-            passengers[0] = new Passenger("Аня", new List<(string, int)>() { ("Соквояж", 3) });
-            passengers[1] = new Passenger("Аня", new List<(string, int)>() { ("Соквояж", 3) });
-            passengers[2] = new Passenger("Аня", new List<(string, int)>() { ("Соквояж", 3) });
-            passengers[3] = new Passenger("Аня", new List<(string, int)>() { ("Соквояж", 3) });
-            passengers[4] = new Passenger("Аня", new List<(string, int)>() { ("Соквояж", 3) });
+            passengers[0] = new Passenger("Аня", new List<(string, int)>() { ("Соквояж", 3), ("Походный рюкзак", 6) });
+            passengers[1] = new Passenger("Даня", new List<(string, int)>() { ("Сумка от ноутбука", 1), ("Сумочка Гуччи", 1), ("Соквояж Долче Кабан", 5), ("Пенал Адидас", 2)});
+            passengers[2] = new Passenger("Маша", new List<(string, int)>() { ("Сумочка Биркин", 10), ("Чемодан Луис Витон", 1), ("Кошелек Прада", 0) });
+            passengers[3] = new Passenger("Лена", new List<(string, int)>() { ("Рюкзак 1", 200), ("Рюкзак 2", 100), ("Рюкзак 3", 5), ("Рюкзак 4", 100), ("Чемодан Машин", 2) });
+            passengers[4] = new Passenger("Миша", new List<(string, int)>() { ("Пакеты в пакете", 2), ("Чехол с гитарой", 10)});
 
-            Console.WriteLine("Сведения о всех игрушках: ");
-            foreach (Passenger passenger in passengers)
+            BinaryPassangersOutput(passengers);
+
+            if (!PassangersToBinary(filePath, passengers))
             {
-                Console.WriteLine(passenger.ToString());
+                return;
             }
-            Console.WriteLine();
 
+            Passenger[] passangersFromFile = BinaryToPassangers(filePath);
+
+            if (passangersFromFile == null)
+            {
+                return;
+            }
+
+            BinaryPassangersOutput(passangersFromFile);
+        }
+
+        private static bool PassangersToBinary(string filePath, Passenger[] passengers)
+        {
             try
             {
-                // Создание BinaryWriter для записи в бинарный файл
                 BinaryWriter writer = new BinaryWriter(File.Open(filePath, FileMode.Create));
-
-                // Создание BinaryFormatter для сериализации массива игрушек
                 BinaryFormatter formatter = new BinaryFormatter();
-
-                // Сериализация массива и запись в файл
                 formatter.Serialize(writer.BaseStream, passengers);
-
-                writer.Flush();
                 writer.Close();
 
                 Console.WriteLine();
-                Console.WriteLine("Файл со сведениями о багаже сохранён по пути:\n" + Path.GetFullPath(filePath));
+                Console.WriteLine("Файл со сведениями о багаже сохранён по пути: " + Path.GetFullPath(filePath));
                 Console.WriteLine();
                 return true;
             }
@@ -216,6 +221,36 @@ namespace Programming_Language_Labs_CSharp
             }
         }
 
+        private static Passenger[] BinaryToPassangers(string filePath)
+        {
+            try
+            {
+                BinaryWriter reader = new BinaryWriter(File.Open(filePath, FileMode.Open));
+                BinaryFormatter formatter = new BinaryFormatter();
+                Passenger[] persons = (Passenger[])formatter.Deserialize(reader.BaseStream);
+                reader.Close();
+                Console.WriteLine();
+                Console.WriteLine("Файл со сведениями о багаже был считан с: " + Path.GetFullPath(filePath));
+                Console.WriteLine();
+                return persons;
+            }
+            catch (Exception ex)
+            {
+                // Вывод сообщения об ошибке в случае исключения
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
+        private static void BinaryPassangersOutput(Passenger[] passengers)
+        {
+            Console.WriteLine("\nСписок пассажиров:");
+            foreach (Passenger passenger in passengers)
+            {
+                Console.WriteLine($"\n{passenger}");
+            }
+            Console.WriteLine();
+        }
         // Поиск и вывод списка подходящих игрушек
         private static void AppropriateLuggage(string filePath)
         {
@@ -266,7 +301,7 @@ namespace Programming_Language_Labs_CSharp
         public static void Task3(string filePath)
         {
             Console.WriteLine("\n------------------------------ Задание 3 ------------------------------");
-
+            FillBinaryFilePassangers(filePath);
             Console.WriteLine("-----------------------------------------------------------------------");
         }
         public static void Task4(string filePath)
