@@ -401,6 +401,58 @@ namespace Programming_Language_Labs_CSharp
             Console.WriteLine($"Произведение элементов: {result}");
         }
 
+        public static void FillTxtFilesByText(string filePath)
+        {
+            Console.WriteLine("\nНапишите строки файла. Чтобы закончить напишите пустую строку.\nВведите содержание файла.\n\n");
+
+            try
+            {
+                string temp;
+                StreamWriter writer = new StreamWriter(File.Open(filePath, FileMode.Create));
+                while ((temp = Console.ReadLine()) != "")
+                {
+                    writer.WriteLine(temp);
+                }
+                writer.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("\nОшибка при заполнении текстового файла");
+                return;
+            }
+        }
+
+        private static void DublicateFile(string filePath, string filePathOutput)
+        {
+            int strLength = ReadFromUser.Int("Введите длину строки: ");
+            try
+            {
+                string temp;
+                StreamReader reader = new StreamReader(File.Open(filePath, FileMode.Open));
+                StreamWriter writer = new StreamWriter(File.Open(filePathOutput, FileMode.Create));
+                while ((temp = reader.ReadLine()) != "")
+                {
+                    if (temp == null)
+                    {
+                        break;
+                    }
+                    if (temp.Length == strLength)
+                    {
+                        writer.WriteLine(temp);
+                    }
+
+                }
+                Console.WriteLine($"Результат находится в: {Path.GetFullPath(filePathOutput)}");
+                writer.Close();
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("\nОшибка при переносе строк между файлами");
+                return;
+            }
+        }
+
         public static void Task1(string filePath)
         {
             Console.WriteLine("\n------------------------------ Задание 1 ------------------------------");
@@ -433,10 +485,11 @@ namespace Programming_Language_Labs_CSharp
             Multiply(filePath);
             Console.WriteLine("-----------------------------------------------------------------------");
         }
-        public static void Task6(string filePath)
+        public static void Task6(string filePath, string filePathOutput)
         {
             Console.WriteLine("\n------------------------------ Задание 6 ------------------------------");
-
+            FillTxtFilesByText(filePath);
+            DublicateFile(filePath, filePathOutput);
             Console.WriteLine("-----------------------------------------------------------------------");
         }
     }

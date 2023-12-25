@@ -5,6 +5,7 @@ internal class Program
     private const string binaryFilePath = "task.bin";
     private const string filePath3 = "task3.bin";
     private const string txtFilePath = "task.txt";
+    private const string txtFilePathOutput = "task6_Output.txt";
 
     internal static void Main(string[] args)
     {
@@ -73,7 +74,7 @@ internal class Program
                     // 6 задание 
                     // Решить задачу с использованием структуры «текстовый файл» (в файле хранится текст)
                     // Переписать в другой файл строки, имеющие заданную длину m.
-                    FileFunction.Task6(txtFilePath);
+                    FileFunction.Task6(txtFilePath, txtFilePathOutput);
                     break;
 
                 case 7:
