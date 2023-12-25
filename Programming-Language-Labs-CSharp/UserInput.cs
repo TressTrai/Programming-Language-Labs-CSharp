@@ -152,5 +152,29 @@ namespace Programming_Language_Labs_CSharp
             return result;
         }
 
+        public static LinkedList<string> StringLinkedList(string msg)
+        {
+
+            Console.WriteLine($"{msg}");
+            LinkedList<string> result = new LinkedList<string>();
+
+            do
+            {
+                string line = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(line))
+                {
+                    if (result.Count == 0)
+                        continue;
+                    else
+                        break;
+                }
+
+                result.AddLast(line);
+
+            } while (true);
+
+            return result;
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace Programming_Language_Labs_CSharp
 
         }
 
-        private static void PrintStringList(List<string> list)
+        private static void PrintList<T>(List<T> list)
         {
             for (int i = 0; i < list.Count; i++)
             {
@@ -56,7 +56,31 @@ namespace Programming_Language_Labs_CSharp
             return L;
         }
 
+        private static LinkedList<string> CreateLinkedList(string msg)
+        {
+            Console.WriteLine(msg);
+            Console.WriteLine("Начинайте вводить строки для формирования списка ниже...");
+            Console.WriteLine("Когда ввод нужно будет закончить - отправьте пустую строку.");
 
+            return ReadFromUser.StringLinkedList("Введите список");
+
+        }
+
+        static LinkedList<string> SortLinkedList(LinkedList<string> list)
+        {
+            List<string> tempList = new List<string>(list);
+            tempList.Sort();
+            return new LinkedList<string>(tempList);
+        }
+
+        private static void PrintLinkedList<T>(LinkedList<T> list)
+        {
+            foreach (var el in list)
+            {
+                Console.Write(el + " ");
+            }
+            Console.WriteLine();
+        }
 
         public static void Task1()
         {
@@ -67,14 +91,16 @@ namespace Programming_Language_Labs_CSharp
 
             L = ReplaceFirstOccurrence(L, L1, L2);
 
-            PrintStringList(L);
+            PrintList(L);
 
             Console.WriteLine("-----------------------------------------------------------------------");
         }
         public static void Task2()
         {
             Console.WriteLine("\n------------------------------ Задание 2 ------------------------------");
-
+            LinkedList<string> linky = CreateLinkedList("Связанный список");
+            linky = SortLinkedList(linky);
+            PrintLinkedList(linky);
             Console.WriteLine("-----------------------------------------------------------------------");
         }
         public static void Task3()
