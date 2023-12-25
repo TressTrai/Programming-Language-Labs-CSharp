@@ -28,7 +28,7 @@ namespace Programming_Language_Labs_CSharp
                 }
                 binaryWriter.Close();
 
-                Console.WriteLine("Создан бинарный файл!");
+                Console.WriteLine("Создан бинарный файл, по пути: " + Path.GetFullPath(filePath));
             }
             catch (Exception ex)
             {
@@ -315,15 +315,20 @@ namespace Programming_Language_Labs_CSharp
 
         }
 
-        public static void FillTxtFileOneOnLine(string filePath, int quantity, int diapozon)
+        public static void FillTxtFileOneOnLine(string filePath)
         {
+            Console.WriteLine("Создание текстового файла...");
+
+            uint quantity = ReadFromUser.UInt("Введите количество элементов: ");
+            uint diapozon = ReadFromUser.UInt("\nВведите диапозон элементов: ");
+
             try
             {
                 StreamWriter writer = new StreamWriter(File.Open(filePath, FileMode.Create));
                 Random random = new Random();
                 for (int i = 0; i < quantity; i++)
                 {
-                    int number = random.Next(-diapozon, diapozon);
+                    int number = random.Next(-(int)diapozon, (int)diapozon);
                     writer.Write(number);
                     writer.WriteLine("");
                 }
@@ -360,8 +365,13 @@ namespace Programming_Language_Labs_CSharp
             }
         }
 
-        public static void FillTxtFilesSeveralOnLine(string filePath, int quantity, int diapozon)
+        public static void FillTxtFilesSeveralOnLine(string filePath)
         {
+            Console.WriteLine("Создание текстового файла...");
+
+            uint quantity = ReadFromUser.UInt("Введите количество элементов: ");
+            uint diapozon = ReadFromUser.UInt("\nВведите диапозон элементов: ");
+
             try
             {
                 StreamWriter writer = new StreamWriter(File.Open(filePath, FileMode.Create));
@@ -369,9 +379,9 @@ namespace Programming_Language_Labs_CSharp
                 Random random2 = new Random();
                 for (int i = 0; i < quantity; i++)
                 {
-                    int number = random.Next(-diapozon, diapozon);
+                    int number = random.Next(-(int)diapozon, (int)diapozon);
                     writer.Write(number + " ");
-                    if (random2.Next(1, 5) == 2)
+                    if (random2.Next(1, 7) == 2)
                     {
                         writer.WriteLine();
                     }
@@ -488,14 +498,14 @@ namespace Programming_Language_Labs_CSharp
         public static void Task4(string filePath)
         {
             Console.WriteLine("\n------------------------------ Задание 4 ------------------------------");
-            FillTxtFileOneOnLine(filePath, 10, 10);
+            FillTxtFileOneOnLine(filePath);
             SumSquare(filePath);
             Console.WriteLine("-----------------------------------------------------------------------");
         }
         public static void Task5(string filePath)
         {
             Console.WriteLine("\n------------------------------ Задание 5 ------------------------------");
-            FillTxtFilesSeveralOnLine(filePath, 10, 10);
+            FillTxtFilesSeveralOnLine(filePath);
             Multiply(filePath);
             Console.WriteLine("-----------------------------------------------------------------------");
         }
