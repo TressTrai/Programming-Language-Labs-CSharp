@@ -2,19 +2,12 @@
 
 internal class Program
 {
-    private const string binaryFilePath = "task.bin";
-    private const string filePath3 = "task3.bin";
-    private const string txtFilePath = "task.txt";
-    private const string txtFilePathOutput = "task6_Output.txt";
 
     internal static void Main(string[] args)
     {
 
         int userSwitch = 1;
 
-        // Создание и заполнени Бинарного файла
-        FileFunction.FillBinaryFile(binaryFilePath);
-        FileFunction.OutputBinaryFile(binaryFilePath);
 
         // Основное тело программы
         while (userSwitch != 0)
@@ -29,7 +22,7 @@ internal class Program
             Console.WriteLine("0. Выход");
             Console.WriteLine("------------------------------------------------------------------------\n");
 
-            userSwitch = ReadFromUser.IntDiap("Выберите пункт задания:", 0, 8);
+            userSwitch = ReadFromUser.IntDiap("Выберите пункт задания:", 0, 5);
 
             switch (userSwitch)
             {
@@ -37,13 +30,13 @@ internal class Program
                     // 1 задание
                     // Решить задачу, используя класс List
                     // Составить программу, которая в списке L заменяет первое вхождение списка L1 (если такое есть) на список L2
-                    FileFunction.Task1(binaryFilePath);
+                    FileFunction.Task1();
                     break;
                 case 2:
                     // 2 задание
                     // Решить задачу, используя класс LinkedList
                     // Сортировка элементов списка по возрастанию.
-                    FileFunction.Task2(binaryFilePath);
+                    FileFunction.Task2();
                     break;
                 case 3:
                     // 3 задание
@@ -52,13 +45,13 @@ internal class Program
                     // • в какие игры из перечня играют все студенты группы;
                     // • в какие игры из перечня играют некоторые студенты группы;
                     // • в какие игры из перечня не играет ни один из студентов группы?
-                    FileFunction.Task3(filePath3);
+                    FileFunction.Task3();
                     break;
                 case 4:
                     // 4 задание
                     // Решить задачу, используя класс HashSet. Дан текстовый файл. Обработать содержимое файла с использованием HashSe
                     // Файл содержит текст на русском языке. Напечатать в алфавитном порядке все глухие согласные буквы, которые не входят хотя бы в одно слово
-                    FileFunction.Task4(txtFilePath);
+                    FileFunction.Task4();
                     break;
                 case 5:
                     // 5 задание 
@@ -85,7 +78,7 @@ internal class Program
                     //остальных участников есть ученики, набравшие такое же количество баллов,
                     //то их фамилии и имена также следует вывести.При этом имена и фамилии
                     //можно выводить в произвольном порядке
-                    FileFunction.Task5(txtFilePath);
+                    FileFunction.Task5();
                     break;
                 case 0:
                     Console.WriteLine("Выход...");
