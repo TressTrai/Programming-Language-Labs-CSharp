@@ -10,6 +10,7 @@ namespace Programming_Language_Labs_CSharp
 {
     internal class FileFunction
     {
+        // Создание и заполнение бинарного файла
         public static void FillBinaryFile(string filePath)
         {
             Console.WriteLine("Создание бинарного файла...");
@@ -36,6 +37,7 @@ namespace Programming_Language_Labs_CSharp
             }
         }
 
+        // Вывод бинарного файла
         public static void OutputBinaryFile(string filePath)
         {
             int temp = 0;
@@ -60,6 +62,7 @@ namespace Programming_Language_Labs_CSharp
             Console.WriteLine();
         }
 
+        // Вычисление произведение нечетных отрицательных чисел с бинарного файла
         private static void CalculateProductOfNegativeOddNumbers(string filePath)
         {
             try
@@ -85,7 +88,8 @@ namespace Programming_Language_Labs_CSharp
             }
         }
 
-        private static bool FillMatrix(string filePath)
+        // Заполнение матрицы и вывод
+        private static void FillMatrix(string filePath)
         {
             int n = ReadFromUser.Int("Введите размерность матрицы nxn: ");
             int index = 0;
@@ -113,16 +117,14 @@ namespace Programming_Language_Labs_CSharp
 
                 Console.WriteLine("\nСодержимое измененной матрицы:");
                 PrintMatrix(ChangeMaxMinElInColumn(matrix, n), n);
-                return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return false;
             }
         }
 
-        // Поменять местами в каждом столбце минимальный и максимальный элементы.
+        // Поменять местами в каждом столбце минимальный и максимальный элементы
         private static int[,] ChangeMaxMinElInColumn(int[,] matrix, int n)
         {
             int iMax;
@@ -163,7 +165,7 @@ namespace Programming_Language_Labs_CSharp
             return newMatrix;
         }
 
-        // Более менее красивый вывод матрицы
+        // Матрица. Красивое.
         private static void PrintMatrix(int[,] matrix, int n)
         {
             for (int i = 0; i < n; i++)
@@ -205,6 +207,7 @@ namespace Programming_Language_Labs_CSharp
             return passangersFromFile;
         }
 
+        // Запись пассажиров в бинарный файл
         private static bool PassangersToBinary(string filePath, Passenger[] passengers)
         {
             try
@@ -227,6 +230,7 @@ namespace Programming_Language_Labs_CSharp
             }
         }
 
+        // Чтение пассажиров из бинарного файла
         private static Passenger[] BinaryToPassangers(string filePath)
         {
             try
@@ -248,6 +252,7 @@ namespace Programming_Language_Labs_CSharp
             }
         }
 
+        // Вывод пассажиров из бинарного файла
         private static void BinaryPassangersOutput(Passenger[] passengers)
         {
             Console.WriteLine("\nСписок пассажиров:");
@@ -315,7 +320,8 @@ namespace Programming_Language_Labs_CSharp
 
         }
 
-        public static void FillTxtFileOneOnLine(string filePath)
+        // Заполнение текстового файла числа по одному в строку
+        private static void FillTxtFileOneOnLine(string filePath)
         {
             Console.WriteLine("Создание текстового файла...");
 
@@ -342,6 +348,7 @@ namespace Programming_Language_Labs_CSharp
             }
         }
 
+        // Элменты в квадрате, затем складываются 
         private static void SumSquare(string filePath)
         {
             int result = 0;
@@ -365,7 +372,8 @@ namespace Programming_Language_Labs_CSharp
             }
         }
 
-        public static void FillTxtFilesSeveralOnLine(string filePath)
+        // Заполнение текстовго файла чисел по несколько в строку
+        private static void FillTxtFilesSeveralOnLine(string filePath)
         {
             Console.WriteLine("Создание текстового файла...");
 
@@ -396,6 +404,7 @@ namespace Programming_Language_Labs_CSharp
             }
         }
 
+        // Переумножение элементов
         private static void Multiply(string filePath)
         {
             int result = 1;
@@ -425,7 +434,8 @@ namespace Programming_Language_Labs_CSharp
             }
         }
 
-        public static void FillTxtFilesByText(string filePath)
+        // Заполнение текстового файла текстом
+        private static void FillTxtFilesByText(string filePath)
         {
             Console.WriteLine("\nНапишите строки файла. Чтобы закончить напишите пустую строку.\nВведите содержание файла.\n");
 
@@ -446,6 +456,7 @@ namespace Programming_Language_Labs_CSharp
             }
         }
 
+        // Дублирование файла со строками определенной длины
         private static void DublicateFile(string filePath, string filePathOutput)
         {
             int strLength = ReadFromUser.Int("Введите длину строки: ");
