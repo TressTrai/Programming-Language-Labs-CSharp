@@ -22,6 +22,8 @@ namespace Programming_Language_Labs_CSharp
                     binaryWriter.Write(number);
                 }
                 binaryWriter.Close();
+
+                Console.WriteLine("Создан бинарный файл!");
             }
             catch (Exception ex)
             {
@@ -40,16 +42,18 @@ namespace Programming_Language_Labs_CSharp
                     // Создаем объект BinaryReader для чтения данных из бинарного файла
                     using (BinaryReader reader = new BinaryReader(fileStream))
                     {
+
+                        Console.Write("Бинарный файл: ");
                         // Читаем данные из файла
                         while (fileStream.Position < fileStream.Length)
                         {
                             int value = reader.ReadInt32();
-                            Console.WriteLine($"Прочитано значение: {value}");
+                            Console.Write($"{value} ");
                         }
                     }
                 }
 
-                Console.WriteLine("Чтение бинарного файла завершено.");
+                Console.WriteLine("");
             }
             else
             {
@@ -62,15 +66,17 @@ namespace Programming_Language_Labs_CSharp
             using (BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open)))
             {
                 int product = 1;
+                Console.Write("Произведение нечетных отрицательных чисел: ");
                 while (reader.BaseStream.Position < reader.BaseStream.Length)
                 {
                     int value = reader.ReadInt32();
                     if (value < 0 && value % 2 != 0)
                     {
                         product *= value;
+                        Console.Write(value + " * ");
                     }
                 }
-                Console.WriteLine("Произведение нечетных отрицательных чисел из файла: " + product);
+                Console.WriteLine("1 = " + product);
             }
         }
 
@@ -97,7 +103,7 @@ namespace Programming_Language_Labs_CSharp
                 reader.Close();
 
                 // Вывод содержимого матрицы
-                Console.WriteLine("Содержимое матрицы:");
+                Console.WriteLine("\nСодержимое матрицы:");
                 PrintMatrix(matrix, n);
 
                 Console.WriteLine("\nСодержимое измененной матрицы:");
@@ -117,7 +123,7 @@ namespace Programming_Language_Labs_CSharp
             int column = 0;
             int iMax = 0;
             int maxValue = 0;
-            int iMin = 0;
+            int iMin = -1000000;
             int minValue = 1000000;
             int[,] newMatrix = matrix;
 
@@ -160,7 +166,7 @@ namespace Programming_Language_Labs_CSharp
             {
                 for (int j = 0; j < n; j++)
                 {
-                    Console.Write(string.Concat(Enumerable.Repeat(" ", 4 - matrix[i, j].ToString().Length)) + matrix[i, j]);
+                    Console.Write(string.Concat(Enumerable.Repeat(" ", 6 - matrix[i, j].ToString().Length)) + matrix[i, j]);
                 }
                 Console.Write("\n");
             }
@@ -169,18 +175,18 @@ namespace Programming_Language_Labs_CSharp
         // Заполнение бинароного файлa багажа
         public static bool FillBinaryFileLaggage(string filePath)
         {
-            Luggage[] luggages = new Luggage[5];
+            Passenger[] passengers = new Passenger[5];
 
-            luggages[0] = new Luggage("Машинка", 2000);
-            luggages[1] = new Luggage("Кукла", 1500);
-            luggages[2] = new Luggage("Мяч", 500);
-            luggages[3] = new Luggage("Паровозик", 3000);
-            luggages[4] = new Luggage("Валорант", 1);
+            passengers[0] = new Passenger("Аня", new List<(string, int)>() { ("Соквояж", 3) });
+            passengers[1] = new Passenger("Аня", new List<(string, int)>() { ("Соквояж", 3) });
+            passengers[2] = new Passenger("Аня", new List<(string, int)>() { ("Соквояж", 3) });
+            passengers[3] = new Passenger("Аня", new List<(string, int)>() { ("Соквояж", 3) });
+            passengers[4] = new Passenger("Аня", new List<(string, int)>() { ("Соквояж", 3) });
 
             Console.WriteLine("Сведения о всех игрушках: ");
-            foreach (Luggage luggage in luggages)
+            foreach (Passenger passenger in passengers)
             {
-                Console.WriteLine(luggage.ToString());
+                Console.WriteLine(passenger.ToString());
             }
             Console.WriteLine();
 
@@ -193,7 +199,7 @@ namespace Programming_Language_Labs_CSharp
                 BinaryFormatter formatter = new BinaryFormatter();
 
                 // Сериализация массива и запись в файл
-                formatter.Serialize(writer.BaseStream, luggages);
+                formatter.Serialize(writer.BaseStream, passengers);
 
                 writer.Flush();
                 writer.Close();
@@ -223,7 +229,7 @@ namespace Programming_Language_Labs_CSharp
                 BinaryFormatter formatter = new BinaryFormatter();
 
                 // Десериализация массива игрушек из файла
-                Luggage[]? luggages = formatter.Deserialize(reader.BaseStream) as Luggage[];
+                Passenger[]? passengers = formatter.Deserialize(reader.BaseStream) as Passenger[];
                 reader.Close();
 
                 // Переменные для формирования списка подходящих игрушек и подсчета их количества
@@ -231,7 +237,7 @@ namespace Programming_Language_Labs_CSharp
                 int count = 0;
 
                 // Найти число пассажиров, имеющих более двух единиц багажа и число пассажиров, количество единиц багажа которых превосходит среднее число единиц багажа.
-                foreach (Luggage luggage in luggages)
+                foreach (Passenger passenger in passengers)
                 {
                     
                 }
@@ -246,7 +252,34 @@ namespace Programming_Language_Labs_CSharp
             }
         }
 
-
+        public static void Task1(string filePath)
+        {
+            Console.WriteLine("\n------------------------------ Задание 1 ------------------------------");
+            CalculateProductOfNegativeOddNumbers(filePath);
+            Console.WriteLine("-----------------------------------------------------------------------");
+        }
+        public static void Task2(string filePath)
+        {
+            Console.WriteLine("\n------------------------------ Задание 2 ------------------------------");
+            FillMatrix(filePath);
+            Console.WriteLine("-----------------------------------------------------------------------");
+        }
+        public static void Task3(string filePath)
+        {
+            
+        }
+        public static void Task4(string filePath)
+        {
+            
+        }
+        public static void Task5(string filePath)
+        {
+            
+        }
+        public static void Task6(string filePath)
+        {
+            
+        }
     }
 
 }

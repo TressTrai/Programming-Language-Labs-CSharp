@@ -93,6 +93,38 @@ namespace Programming_Language_Labs_CSharp
             return result;
         }
 
+        public static int IntDiap(string msg, int min, int max)
+        {
+            Console.WriteLine($"{msg}");
+            int result;
 
+            do
+            {
+                Console.Write($"   Введите число от {min} до {max}: ");
+                string input = Console.ReadLine();
+
+                // Пытаемся преобразовать введенное значение в int
+                bool isParsed = int.TryParse(input, out result);
+
+                // Проверяем, что введено положительное число
+                if (isParsed)
+                {
+                    if (result >= min && result <= max)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("   Ошибка! Введите число в заданном диапозоне!");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("   Ошибка! Введите число!");
+                }
+            } while (true);
+
+            return result;
+        }
     }
 }

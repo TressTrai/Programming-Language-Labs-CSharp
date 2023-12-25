@@ -1,44 +1,27 @@
 ﻿// Информация о багаже пассажира описывается массивом, где каждый элемент содержит название единицы багажа(чемодан, сумка, коробка и т.д.) и ее массу.
 
 [Serializable]
-public struct Luggage
+struct Passenger
 {
-    public string type;
-    public double weight;
+    private string name;
+    private List<(string, int)> luggage;
 
-    // Свойства только для чтения, обеспечивающие доступ к полям структуры
-    public string Type { get { return type; } }
-    public double Wieght { get { return weight; } }
+    public string Name { get { return name; } }
+    public List<(string, int)> Luggage { get { return luggage; } }
 
-    // Конструктор для создания объекта Luggage
-    public Luggage(string type, double weight)
+    public Passenger(string name, List<(string, int)> luggage)
     {
-        this.type = type;
-        this.weight = weight;
+        this.name = name;
+        this.luggage = luggage;
     }
 
-    // Переопределение метода ToString для красивого вывода информации об багаже
     public override string ToString()
     {
-        return "Багаж: '" + type + '\'' + ", Вес: " + weight.ToString();
-
-    }
-}
-
-[Serializable]
-public class Passenger
-{
-    private Luggage[] luggageList;
-
-    public Luggage[] LuggageList {
-        get
+        string result = $"Имя: {this.name}\nБагаж:";
+        foreach ((string item, int weight) in this.luggage)
         {
-            return luggageList;
+            result += $"\n- Предмет: {item}, Масса: {weight}";
         }
-        set
-        {
-            luggageList = value;
-        }
-
+        return result;
     }
 }
