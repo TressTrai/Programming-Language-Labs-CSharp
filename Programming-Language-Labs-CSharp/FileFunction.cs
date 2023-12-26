@@ -144,6 +144,119 @@ namespace Programming_Language_Labs_CSharp
 
         }
 
+        private static void FindMaxValue(Dictionary<string, int> dict)
+        {
+
+            int max = int.MinValue;
+
+            foreach (var el in dict)
+            {
+                if (el.Value > max)
+                {
+                    max = el.Value;
+                }
+            }
+
+            Console.WriteLine($"Участники, набравшие макс количество баллов: ");
+
+            foreach (var el in dict)
+            {
+                if (el.Value == max)
+                {
+                    Console.WriteLine("     " + el.Key);
+                }
+            }
+            
+        }
+
+        private static Dictionary<string, int> ReadInfoFromContest(string filePath)
+        {
+            Dictionary<string, int> participants = new Dictionary<string, int>();
+
+            try
+            {
+                string line;
+                string[] SplitLine;
+                string name;
+                int scores, score1, score2, score3;
+                int n;
+                StreamReader reader = new StreamReader(File.Open(filePath, FileMode.Open));
+
+                bool success_n = int.TryParse(reader.ReadLine(), out n);
+
+                if (!success_n)
+                {
+                    Console.WriteLine("Не удалось сконвертировать в число");
+                    return null;
+                }
+
+                if (n > 250 || n < 1)
+                {
+                    Console.WriteLine("Некорректное число участников");
+                    return null;
+                }
+
+                for (int i = 0; i < n; i++)
+                {
+                    line = reader.ReadLine();
+
+                    if (line == "")
+                    {
+                        Console.WriteLine("Недостаточно данных об участниках");
+                        return null;
+                    }
+
+                    SplitLine = line.Split(" ");
+
+                    if (SplitLine.Length != 5)
+                    {
+                        Console.WriteLine("Некорректное число элементов в строке");
+                        return null;
+                    }
+
+                    if (SplitLine[0].Length > 20)
+                    {
+                        Console.WriteLine("Фамилия слишком длинная");
+                        return null;
+                    }
+
+                    if (SplitLine[1].Length > 15)
+                    {
+                        Console.WriteLine("Имя слишком длинное");
+                        return null;
+                    }
+
+                    name = SplitLine[0] + " " + SplitLine[1];
+
+                    bool success_s1 = int.TryParse(SplitLine[2], out score1);
+                    bool success_s2 = int.TryParse(SplitLine[3], out score2);
+                    bool success_s3 = int.TryParse(SplitLine[4], out score3);
+
+                    if (!(success_s1 &&  success_s2 && success_s3))
+                    {
+                        Console.WriteLine("Не удалось конвертировать баллы в числа");
+                        return null;
+                    }
+
+                    if (score1 > 25 || score2 > 25 || score3 > 25)
+                    {
+                        Console.WriteLine("Тут явно кто-то считерил");
+                        return null;
+                    }
+
+                    scores = score1 + score2 + score3;
+                    participants.Add(name, scores);
+                }
+                reader.Close();
+                return participants;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ошибка при обработке данных файла: " + ex);
+                return null;
+            }
+        }
+
         public static void Task1()
         {
             Console.WriteLine("\n------------------------------ Задание 1 ------------------------------");
@@ -197,6 +310,9 @@ namespace Programming_Language_Labs_CSharp
         public static void Task5()
         {
             Console.WriteLine("\n------------------------------ Задание 5 ------------------------------");
+            Dictionary<string, int> participants = ReadInfoFromContest("Task5.txt");
+
+            FindMaxValue(participants);
 
             Console.WriteLine("-----------------------------------------------------------------------");
         }
