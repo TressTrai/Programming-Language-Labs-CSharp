@@ -159,6 +159,7 @@ namespace Programming_Language_Labs_CSharp
             return result;
         }
 
+        // Создание корректного строкого связанного списка
         public static LinkedList<string> StringLinkedList(string msg)
         {
 
@@ -171,13 +172,16 @@ namespace Programming_Language_Labs_CSharp
 
                 if (string.IsNullOrEmpty(line))
                 {
-                    if (result.Count == 0)
+                    if (result.Count == 0) // Продолжаем запрашивать ввод если первая строка пользователя была пустая
+                    {
+                        Console.WriteLine("Введите хоть что-то, пожалуйста");
                         continue;
+                    }
                     else
                         break;
                 }
 
-                result.AddLast(line);
+                result.AddLast(line); // Добавляем прочитанную строку в конец списка
 
             } while (true);
 

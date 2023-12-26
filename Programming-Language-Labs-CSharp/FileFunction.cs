@@ -60,23 +60,26 @@ namespace Programming_Language_Labs_CSharp
             return L;
         }
 
+        // Создание связанного списка
         private static LinkedList<string> CreateLinkedList(string msg)
         {
             Console.WriteLine(msg);
-            Console.WriteLine("Начинайте вводить строки для формирования списка ниже...");
-            Console.WriteLine("Когда ввод нужно будет закончить - отправьте пустую строку.");
+            Console.WriteLine("Строка - элемент списка");
+            Console.Write("Пустой энтер - прекращение ввода");
 
-            return ReadFromUser.StringLinkedList("Введите список");
+            return ReadFromUser.StringLinkedList("");
 
         }
 
-        static LinkedList<string> SortLinkedList(LinkedList<string> list)
+        // Сортировка связанного списка
+        static LinkedList<T> SortLinkedList<T>(LinkedList<T> list)
         {
-            List<string> tempList = new List<string>(list);
-            tempList.Sort();
-            return new LinkedList<string>(tempList);
+            List<T> tempList = new List<T>(list); // Преобразуем в обычный список
+            tempList.Sort(); 
+            return new LinkedList<T>(tempList);
         }
 
+        // Вывод связанного списка
         private static void PrintLinkedList<T>(LinkedList<T> list)
         {
             foreach (var el in list)
@@ -290,6 +293,8 @@ namespace Programming_Language_Labs_CSharp
 
             Console.WriteLine("-----------------------------------------------------------------------");
         }
+
+        // Вывод второго задания
         public static void Task2()
         {
             Console.WriteLine("\n------------------------------ Задание 2 ------------------------------");
