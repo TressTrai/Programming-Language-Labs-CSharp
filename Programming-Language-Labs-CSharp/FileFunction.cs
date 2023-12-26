@@ -505,12 +505,16 @@ namespace Programming_Language_Labs_CSharp
             CalculateProductOfNegativeOddNumbers(filePath);
             Console.WriteLine("-----------------------------------------------------------------------");
         }
+
+        // Вывод второго задания
         public static void Task2(string filePath)
         {
             Console.WriteLine("\n------------------------------ Задание 2 ------------------------------");
             FillMatrix(filePath);
             Console.WriteLine("-----------------------------------------------------------------------");
         }
+
+        // Вывод третьего задания
         public static void Task3(string filePath)
         {
             Console.WriteLine("\n------------------------------ Задание 3 ------------------------------");
