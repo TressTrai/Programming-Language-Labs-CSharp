@@ -82,6 +82,68 @@ namespace Programming_Language_Labs_CSharp
             Console.WriteLine();
         }
 
+        private static void fillHashSetGames()
+        {
+            Console.WriteLine("\nНапишите названия компьютерных игр. Чтобы закончить напишите пустую строку.\n\n");
+            HashSet<string> games = new HashSet<string> { "Valorant", "Minecraft", "Genshin Impact", "Factorio", "Stardew Valley", "Starbound", "Terraria", "Doom", "PustozerskVR", "NyaganVR", "KrotuvaGame" };
+
+
+            Console.WriteLine("\nНапишите предпочтения каждого студента в одной строке, разделяя игры с помощью \";\". \nЧтобы закончить напишите пустую строку.\n\n");
+            HashSet<HashSet<string>> studentChoices = new HashSet<HashSet<string>> { };
+        }
+
+        // Заполнение текстового файла текстом
+        private static void FillTxtFilesByText(string filePath)
+        {
+            Console.WriteLine("\nНапишите строки файла. Чтобы закончить напишите пустую строку.\nВведите содержание файла.\n");
+
+            try
+            {
+                string temp;
+                StreamWriter writer = new StreamWriter(File.Open(filePath, FileMode.Create));
+                while ((temp = Console.ReadLine()) != "")
+                {
+                    writer.WriteLine(temp);
+                }
+                writer.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
+            }
+        }
+
+
+        private static bool CheckLetters(string filePath, HashSet<char> letters)
+        {
+            try
+            {
+                string line;
+                char temp;
+                StreamReader reader = new StreamReader(File.Open(filePath, FileMode.Open));
+                while ((line = reader.ReadLine()) != null)
+                {
+                    foreach (char c in line)
+                    {
+                        temp = Char.ToUpper(c);
+                        if (letters.Contains(temp))
+                        {
+                            letters.Remove(temp);
+                        }
+                    }
+                }
+                reader.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ошибка при обработке данных файла: " + ex);
+                return false;
+            }
+
+        }
+
         public static void Task1()
         {
             Console.WriteLine("\n------------------------------ Задание 1 ------------------------------");
@@ -113,6 +175,23 @@ namespace Programming_Language_Labs_CSharp
         {
             Console.WriteLine("\n------------------------------ Задание 4 ------------------------------");
 
+            HashSet<char> letters = new HashSet<char>("КСПТФХЧШЩЦ");
+            string filename = "File4.txt";
+            FillTxtFilesByText(filename);
+            if (!CheckLetters(filename, letters))
+                return;
+            if (letters.Count == 0)
+            {
+                Console.WriteLine("\nВсе глухие согласные входят хотя бы в одно слово");
+                return;
+            }
+
+            Console.WriteLine("\nГлухие согласные, которые не входят в слова: ");
+            foreach (var let in letters)
+            {
+                Console.Write($"{let} ");
+            }
+            Console.WriteLine();
             Console.WriteLine("-----------------------------------------------------------------------");
         }
         public static void Task5()
