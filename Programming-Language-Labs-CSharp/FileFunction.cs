@@ -65,6 +65,7 @@ namespace Programming_Language_Labs_CSharp
         // Вычисление произведение нечетных отрицательных чисел с бинарного файла
         private static void CalculateProductOfNegativeOddNumbers(string filePath)
         {
+            bool isPrint = false;
             try
             {
                 BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open));
@@ -77,9 +78,18 @@ namespace Programming_Language_Labs_CSharp
                     {
                         product *= value;
                         Console.Write(value + " * ");
+                        isPrint = true;
                     }
                 }
-                Console.WriteLine("1 = " + product);
+                if (isPrint)
+                {
+                    Console.WriteLine("1 = " + product);
+                } 
+                else
+                {
+                    Console.WriteLine("0");
+                }
+
                 reader.Close();
             }
             catch (Exception ex)
@@ -488,6 +498,7 @@ namespace Programming_Language_Labs_CSharp
             }
         }
 
+        // Вывод первого задания
         public static void Task1(string filePath)
         {
             Console.WriteLine("\n------------------------------ Задание 1 ------------------------------");
