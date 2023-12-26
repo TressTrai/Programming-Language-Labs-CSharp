@@ -9,25 +9,29 @@ namespace Programming_Language_Labs_CSharp
 {
     internal class FileFunction
     {
+        // Создание строкового списка
         private static List<string> CreateList(string msg)
         {
             Console.WriteLine(msg);
-            Console.WriteLine("Начинайте вводить строки для формирования списка ниже...");
-            Console.WriteLine("Когда ввод нужно будет закончить - отправьте пустую строку.");
+            Console.WriteLine("Строка - элемент списка");
+            Console.Write("Пустой энтер - прекращение ввода");
 
-            return ReadFromUser.StringList("Введите список");
+            return ReadFromUser.StringList("");
 
         }
-
+        
+        // Вывод списка
         private static void PrintList<T>(List<T> list)
         {
             for (int i = 0; i < list.Count; i++)
             {
-                Console.WriteLine(list[i] + " ");
+                Console.Write(list[i] + " ");
             }
+            Console.WriteLine();
         }
 
-        static List<T> ReplaceFirstOccurrence<T>(List<T> L, List<T> L1, List<T> L2)
+        // Замена первого вхождения списка другим списком
+        private static List<T> ReplaceFirstOccurrence<T>(List<T> L, List<T> L1, List<T> L2)
         {
             int index = -1;
             for (int i = 0; i <= L.Count - L1.Count; i++)
@@ -41,7 +45,7 @@ namespace Programming_Language_Labs_CSharp
                         break;
                     }
                 }
-                if (found)
+                if (found) // Если переменная осталась true после цикла проверки вхождения, значит, последовательность L1 найдена
                 {
                     index = i;
                     break;
@@ -50,8 +54,8 @@ namespace Programming_Language_Labs_CSharp
 
             if (index != -1)
             {
-                L.RemoveRange(index, L1.Count);
-                L.InsertRange(index, L2);
+                L.RemoveRange(index, L1.Count); // Удаляем подпоследовательность
+                L.InsertRange(index, L2); // Вставляем подпоследовательность
             }
             return L;
         }
@@ -257,15 +261,31 @@ namespace Programming_Language_Labs_CSharp
             }
         }
 
+        // Вывод первого задания
         public static void Task1()
         {
             Console.WriteLine("\n------------------------------ Задание 1 ------------------------------");
+            
+            // Создание списков
             List<string> L = CreateList("Список L");
             List<string> L1 = CreateList("Список L1");
             List<string> L2 = CreateList("Список L2");
 
+            // Вывод данных списков
+            Console.Write("Начальный список L: ");
+            PrintList(L);
+
+            Console.Write("Список вхождения L1: ");
+            PrintList(L1);
+
+            Console.Write("Список замены L2: ");
+            PrintList(L2);
+
+            // Замена первого вхождения 
             L = ReplaceFirstOccurrence(L, L1, L2);
 
+            // Вывод конечного списка
+            Console.Write("Изменненный список L: ");
             PrintList(L);
 
             Console.WriteLine("-----------------------------------------------------------------------");

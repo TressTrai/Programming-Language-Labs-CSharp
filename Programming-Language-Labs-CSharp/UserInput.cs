@@ -9,6 +9,7 @@ namespace Programming_Language_Labs_CSharp
 {
     internal class ReadFromUser
     {
+        // Для старых лаб
         public static uint UInt(string msg)
         {
             Console.WriteLine($"{msg}");
@@ -37,6 +38,7 @@ namespace Programming_Language_Labs_CSharp
             return result;
         }
 
+        // Для старых лаб
         public static byte Byte(string msg)
         {
             Console.WriteLine($"{msg}");
@@ -65,6 +67,7 @@ namespace Programming_Language_Labs_CSharp
             return result;
         }
 
+        // Для старых лаб
         public static int Int(string msg)
         {
             Console.WriteLine($"{msg}");
@@ -93,6 +96,7 @@ namespace Programming_Language_Labs_CSharp
             return result;
         }
 
+        // Проверка на корректность целого числа в диапозоне
         public static int IntDiap(string msg, int min, int max)
         {
             Console.WriteLine($"{msg}");
@@ -127,9 +131,9 @@ namespace Programming_Language_Labs_CSharp
             return result;
         }
 
+        // Создание корректного строкового списка
         public static List<string> StringList(string msg)
         {
-
             Console.WriteLine($"{msg}");
             List<string> result = new List<string>();
 
@@ -139,13 +143,16 @@ namespace Programming_Language_Labs_CSharp
 
                 if (string.IsNullOrEmpty(line))
                 {
-                    if (result.Count == 0)
+                    if (result.Count == 0) // Продолжаем запрашивать ввод если первая строка пользователя была пустая
+                    {
+                        Console.WriteLine("Введите хоть что-то, пожалуйста");
                         continue;
+                    }
                     else
                         break;
                 }
 
-                result.Add(line);
+                result.Add(line); // Добавляем прочитанную строку в список
 
             } while (true);
 
