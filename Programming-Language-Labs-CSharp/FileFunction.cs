@@ -152,6 +152,7 @@ namespace Programming_Language_Labs_CSharp
 
         }
 
+        // Поиск максимального значения в словаре
         private static void FindMaxValue(Dictionary<string, int> dict)
         {
 
@@ -169,7 +170,7 @@ namespace Programming_Language_Labs_CSharp
 
             foreach (var el in dict)
             {
-                if (el.Value == max)
+                if (el.Value == max) // Если набрано максимальное количество, то выводим
                 {
                     Console.WriteLine("     " + el.Key);
                 }
@@ -177,6 +178,7 @@ namespace Programming_Language_Labs_CSharp
             
         }
 
+        // Чтение из файла в словарь
         private static Dictionary<string, int> ReadInfoFromContest(string filePath)
         {
             Dictionary<string, int> participants = new Dictionary<string, int>();
@@ -195,12 +197,14 @@ namespace Programming_Language_Labs_CSharp
                 if (!success_n)
                 {
                     Console.WriteLine("Не удалось сконвертировать в число");
+                    reader.Close();
                     return null;
                 }
 
                 if (n > 250 || n < 1)
                 {
                     Console.WriteLine("Некорректное число участников");
+                    reader.Close();
                     return null;
                 }
 
@@ -211,6 +215,7 @@ namespace Programming_Language_Labs_CSharp
                     if (line == null)
                     {
                         Console.WriteLine("Недостаточно данных об участниках");
+                        reader.Close();
                         return null;
                     }
 
@@ -219,18 +224,21 @@ namespace Programming_Language_Labs_CSharp
                     if (SplitLine.Length != 5)
                     {
                         Console.WriteLine("Некорректное число элементов в строке");
+                        reader.Close();
                         return null;
                     }
 
                     if (SplitLine[0].Length > 20)
                     {
                         Console.WriteLine("Фамилия слишком длинная");
+                        reader.Close();
                         return null;
                     }
 
                     if (SplitLine[1].Length > 15)
                     {
                         Console.WriteLine("Имя слишком длинное");
+                        reader.Close();
                         return null;
                     }
 
@@ -243,12 +251,14 @@ namespace Programming_Language_Labs_CSharp
                     if (!(success_s1 &&  success_s2 && success_s3))
                     {
                         Console.WriteLine("Не удалось конвертировать баллы в числа");
+                        reader.Close();
                         return null;
                     }
 
                     if (score1 > 25 || score2 > 25 || score3 > 25 || score1 < 0 || score2 < 0 || score3 < 0)
                     {
                         Console.WriteLine("Тут явно кто-то считерил, что-то не так с баллами");
+                        reader.Close();
                         return null;
                     }
 
@@ -300,7 +310,13 @@ namespace Programming_Language_Labs_CSharp
         {
             Console.WriteLine("\n------------------------------ Задание 2 ------------------------------");
             LinkedList<string> linky = CreateLinkedList("Связанный список");
+
+            Console.WriteLine("Изначальный список: ");
+            PrintLinkedList(linky);
+
             linky = SortLinkedList(linky);
+
+            Console.WriteLine("Отсортированный список: ");
             PrintLinkedList(linky);
             Console.WriteLine("-----------------------------------------------------------------------");
         }
@@ -340,6 +356,8 @@ namespace Programming_Language_Labs_CSharp
             }
             Console.WriteLine("-----------------------------------------------------------------------");
         }
+
+        // Вывод пятого задания
         public static void Task5()
         {
             Console.WriteLine("\n------------------------------ Задание 5 ------------------------------");
