@@ -102,13 +102,14 @@ namespace Programming_Language_Labs_CSharp
         // Заполнение текстового файла текстом
         private static void FillTxtFilesByText(string filePath)
         {
-            Console.WriteLine("\nНапишите строки файла. Чтобы закончить напишите пустую строку.\nВведите содержание файла.\n");
+            Console.WriteLine("\nНапишите строки файла.");
+            Console.WriteLine("Пустая строка - выход");
 
             try
             {
                 string temp;
                 StreamWriter writer = new StreamWriter(File.Open(filePath, FileMode.Create));
-                while ((temp = Console.ReadLine()) != "")
+                while ((temp = Console.ReadLine()) != "") // Если будет пустая строчка то выйдет из цикла
                 {
                     writer.WriteLine(temp);
                 }
@@ -121,20 +122,20 @@ namespace Programming_Language_Labs_CSharp
             }
         }
 
-
-        private static bool CheckLetters(string filePath, HashSet<char> letters)
+        // Проверка на наличие нужных букв
+        private static bool CheckConsonantal(string filePath, HashSet<char> letters)
         {
             try
             {
                 string line;
                 char temp;
                 StreamReader reader = new StreamReader(File.Open(filePath, FileMode.Open));
-                while ((line = reader.ReadLine()) != null)
+                while ((line = reader.ReadLine()) != null) // По строчно считываем
                 {
-                    foreach (char c in line)
+                    foreach (char c in line) // Проверяем каждый символ в строке
                     {
-                        temp = Char.ToUpper(c);
-                        if (letters.Contains(temp))
+                        temp = Char.ToUpper(c); // Подгоняем под стандарты (ну, чтобы, не парится маленькая буква или большая)
+                        if (letters.Contains(temp)) // Если есть, то убираем, по моему логично
                         {
                             letters.Remove(temp);
                         }
@@ -145,7 +146,7 @@ namespace Programming_Language_Labs_CSharp
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Ошибка при обработке данных файла: " + ex);
+                Console.WriteLine(ex);
                 return false;
             }
 
@@ -303,33 +304,40 @@ namespace Programming_Language_Labs_CSharp
             PrintLinkedList(linky);
             Console.WriteLine("-----------------------------------------------------------------------");
         }
+
+        // Вывод третьего задания
         public static void Task3()
         {
             Console.WriteLine("\n------------------------------ Задание 3 ------------------------------");
 
             Console.WriteLine("-----------------------------------------------------------------------");
         }
+
+        // Вывод четвертого задания
         public static void Task4()
         {
             Console.WriteLine("\n------------------------------ Задание 4 ------------------------------");
 
-            HashSet<char> letters = new HashSet<char>("КСПТФХЧШЩЦ");
-            string filename = "File4.txt";
-            FillTxtFilesByText(filename);
-            if (!CheckLetters(filename, letters))
-                return;
-            if (letters.Count == 0)
-            {
-                Console.WriteLine("\nВсе глухие согласные входят хотя бы в одно слово");
-                return;
-            }
+            HashSet<char> consonantalDullLetters = new HashSet<char>("КСПТФХЧШЩЦ"); // Множество глухих согласных букв
+            string filename = "Task4.txt"; 
+            FillTxtFilesByText(filename); // Заполняем файл текстом
 
-            Console.WriteLine("\nГлухие согласные, которые не входят в слова: ");
-            foreach (var let in letters)
+            if (!CheckConsonantal(filename, consonantalDullLetters))
+                return;
+
+            if (consonantalDullLetters.Count == 0) // Если не осталось букв, значит они все использованы
             {
-                Console.Write($"{let} ");
+                Console.WriteLine("\nВсе глухие согласные задействованы");
+            } 
+            else
+            {
+                Console.WriteLine("Глухие согласные, которые не входят в слова: ");
+                foreach (var el in consonantalDullLetters) // Выводим эту красоту
+                {
+                    Console.Write(el);
+                }
+                Console.WriteLine();
             }
-            Console.WriteLine();
             Console.WriteLine("-----------------------------------------------------------------------");
         }
         public static void Task5()
