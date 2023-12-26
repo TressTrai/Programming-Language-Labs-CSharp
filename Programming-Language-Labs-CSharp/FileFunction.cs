@@ -89,14 +89,21 @@ namespace Programming_Language_Labs_CSharp
             Console.WriteLine();
         }
 
-        private static void fillHashSetGames()
+        // Вывод множества
+        private static void OutPutHashSetGames(string msg, HashSet<string> set)
         {
-            Console.WriteLine("\nНапишите названия компьютерных игр. Чтобы закончить напишите пустую строку.\n\n");
-            HashSet<string> games = new HashSet<string> { "Valorant", "Minecraft", "Genshin Impact", "Factorio", "Stardew Valley", "Starbound", "Terraria", "Doom", "PustozerskVR", "NyaganVR", "KrotuvaGame" };
-
-
-            Console.WriteLine("\nНапишите предпочтения каждого студента в одной строке, разделяя игры с помощью \";\". \nЧтобы закончить напишите пустую строку.\n\n");
-            HashSet<HashSet<string>> studentChoices = new HashSet<HashSet<string>> { };
+            Console.WriteLine(msg);
+            if (set.Count != 0)
+            {
+                foreach (var el in set)
+                {
+                    Console.WriteLine(el);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Таких игр нет!");
+            }
         }
 
         // Заполнение текстового файла текстом
@@ -325,6 +332,39 @@ namespace Programming_Language_Labs_CSharp
         public static void Task3()
         {
             Console.WriteLine("\n------------------------------ Задание 3 ------------------------------");
+            // Общее множество игр
+            HashSet<string> games = new HashSet<string> { "Valorant", "Minecraft", "Genshin Impact", "Factorio", "Stardew Valley", "Starbound", "Terraria", "Doom", "PustozerskVR", "NyaganVR", "KrotuvaGame" };
+
+            // Студенты группы
+            HashSet<string> student1 = new HashSet<string> { "Valorant", "Genshin Impact" };
+            HashSet<string> student2 = new HashSet<string> { "Minecraft", "Factorio","Terraria", "Doom","KrotuvaGame" };
+            HashSet<string> student3 = new HashSet<string> { "Valorant", "Minecraft", "Genshin Impact", "PustozerskVR", "NyaganVR", "KrotuvaGame" };
+            HashSet<string> student4 = new HashSet<string> { "Minecraft"};
+
+            // Игры в которые все играют
+            HashSet<string> LoveGame = new HashSet<string> (student1);
+            LoveGame.IntersectWith(student2);
+            LoveGame.IntersectWith(student3);
+            LoveGame.IntersectWith(student4);
+            OutPutHashSetGames("Любимые игры группы: ", LoveGame);
+
+            Console.WriteLine();
+
+            // Игры в которые никто не играет
+            HashSet<string> HateGame = new HashSet<string>(games);
+            HateGame.ExceptWith(student1);
+            HateGame.ExceptWith(student2);
+            HateGame.ExceptWith(student3);
+            HateGame.ExceptWith(student4);
+            OutPutHashSetGames("Непопулярные игры группы: ", HateGame);
+
+            Console.WriteLine();
+
+            // Игры кто хоть кто-то играет, но не все
+            HashSet<string> SoSoGame = new HashSet<string>(games);
+            SoSoGame.ExceptWith(HateGame);
+            SoSoGame.ExceptWith(LoveGame);
+            OutPutHashSetGames("Относительно популярные игры группы: ", SoSoGame);
 
             Console.WriteLine("-----------------------------------------------------------------------");
         }
