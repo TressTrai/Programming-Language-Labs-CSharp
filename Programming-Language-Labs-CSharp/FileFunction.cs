@@ -200,7 +200,7 @@ namespace Programming_Language_Labs_CSharp
                 {
                     line = reader.ReadLine();
 
-                    if (line == "")
+                    if (line == null)
                     {
                         Console.WriteLine("Недостаточно данных об участниках");
                         return null;
@@ -238,9 +238,9 @@ namespace Programming_Language_Labs_CSharp
                         return null;
                     }
 
-                    if (score1 > 25 || score2 > 25 || score3 > 25)
+                    if (score1 > 25 || score2 > 25 || score3 > 25 || score1 < 0 || score2 < 0 || score3 < 0)
                     {
-                        Console.WriteLine("Тут явно кто-то считерил");
+                        Console.WriteLine("Тут явно кто-то считерил, что-то не так с баллами");
                         return null;
                     }
 
@@ -312,7 +312,8 @@ namespace Programming_Language_Labs_CSharp
             Console.WriteLine("\n------------------------------ Задание 5 ------------------------------");
             Dictionary<string, int> participants = ReadInfoFromContest("Task5.txt");
 
-            FindMaxValue(participants);
+            if (participants != null)
+                FindMaxValue(participants);
 
             Console.WriteLine("-----------------------------------------------------------------------");
         }
