@@ -35,7 +35,7 @@ internal class Program
             Console.WriteLine("0. Выход");
             Console.WriteLine("------------------------------------------------------------------------\n");
 
-            userSwitch = ReadFromUser.IntDiap("Выберите пункт задания:", 0, 8);
+            userSwitch = ReadFromUser.IntDiap("Выберите пункт меню:", 0, 8);
 
             switch (userSwitch)
             {

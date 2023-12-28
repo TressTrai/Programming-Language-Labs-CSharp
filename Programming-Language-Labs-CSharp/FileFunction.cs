@@ -191,7 +191,7 @@ namespace Programming_Language_Labs_CSharp
         // Заполнение бинароного файлa багажа
         private static Passenger[] FillBinaryFilePassangers(string filePath)
         {
-            Passenger[] passengers = new Passenger[5];
+            Passenger[] passengers = new Passenger[5]; // массив на 5 элементов
 
             passengers[0] = new Passenger("Аня", new List<(string, int)>() { ("Соквояж", 3), ("Походный рюкзак", 6) });
             passengers[1] = new Passenger("Даня", new List<(string, int)>() { ("Сумка от ноутбука", 1), ("Сумочка Гуччи", 1), ("Соквояж Долче Кабан", 5), ("Пенал Адидас", 2)});
@@ -199,21 +199,23 @@ namespace Programming_Language_Labs_CSharp
             passengers[3] = new Passenger("Лена", new List<(string, int)>() { ("Рюкзак 1", 200), ("Рюкзак 2", 100), ("Рюкзак 3", 5), ("Рюкзак 4", 100), ("Чемодан Машин", 2) });
             passengers[4] = new Passenger("Миша", new List<(string, int)>() { ("Пакеты в пакете", 2), ("Чехол с гитарой", 10)});
 
-            BinaryPassangersOutput(passengers);
+            BinaryPassangersOutput(passengers); // Вывод содержимого массива до записи в файл
 
-            if (!PassangersToBinary(filePath, passengers))
+            if (!PassangersToBinary(filePath, passengers)) // Пытаемся записать нашу структуру в бинарный файл
             {
-                return null;
+                Passenger[] emptyArray = new Passenger[0]; 
+                return emptyArray; // возвращаем пустой массив
             }
 
-            Passenger[] passangersFromFile = BinaryToPassangers(filePath);
+            Passenger[] passangersFromFile = BinaryToPassangers(filePath); // Считываем с файла и преобразуем в структуру
 
-            if (passangersFromFile == null)
+            if (passangersFromFile.Length == 0) // Проверяем что в массиве что-то есть
             {
-                return null;
+                Passenger[] emptyArray = new Passenger[0];
+                return emptyArray; // возвращаем пустой массив
             }
 
-            BinaryPassangersOutput(passangersFromFile);
+            BinaryPassangersOutput(passangersFromFile); // Вывод содержимого массива после считывания с файла
             return passangersFromFile;
         }
 
@@ -224,11 +226,12 @@ namespace Programming_Language_Labs_CSharp
             {
                 BinaryWriter writer = new BinaryWriter(File.Open(filePath, FileMode.Create));
                 BinaryFormatter formatter = new BinaryFormatter();
+
+                // Бинарно сериализуем массив пассажиров и записываем его в файл
                 formatter.Serialize(writer.BaseStream, passengers);
                 writer.Close();
 
-                Console.WriteLine();
-                Console.WriteLine("Файл со сведениями о багаже сохранён по пути: " + Path.GetFullPath(filePath));
+                Console.WriteLine("\nФайл со сведениями о багаже сохранён по пути: " + Path.GetFullPath(filePath));
                 Console.WriteLine();
                 return true;
             }
@@ -247,18 +250,21 @@ namespace Programming_Language_Labs_CSharp
             {
                 BinaryWriter reader = new BinaryWriter(File.Open(filePath, FileMode.Open));
                 BinaryFormatter formatter = new BinaryFormatter();
-                Passenger[] persons = (Passenger[])formatter.Deserialize(reader.BaseStream);
+
+                // Десериализируем из файла
+                Passenger[] passengers = (Passenger[])formatter.Deserialize(reader.BaseStream);
                 reader.Close();
+
+                Console.WriteLine("\nФайл со сведениями о багаже был считан с: " + Path.GetFullPath(filePath));
                 Console.WriteLine();
-                Console.WriteLine("Файл со сведениями о багаже был считан с: " + Path.GetFullPath(filePath));
-                Console.WriteLine();
-                return persons;
+                return passengers;
             }
             catch (Exception ex)
             {
                 // Вывод сообщения об ошибке в случае исключения
                 Console.WriteLine(ex.Message);
-                return null;
+                Passenger[] emptyArray = new Passenger[0];
+                return emptyArray; // возвращаем пустой массив
             }
         }
 
@@ -276,58 +282,28 @@ namespace Programming_Language_Labs_CSharp
         // Поиск и вывод списка подходящих пассажиров
         private static void AppropriatePassangers(string filePath, Passenger[] passengers)
         {
-            int luggageCount = 0;
-            int moreThan2 = 0;
+            int countBaggage = 0; // Сколько багажа всего
+            int countMoreTwo = 0; // Число пассажиров у которых багажа больше чем два
 
             foreach (Passenger passanger in passengers)
             {
-                int k = 0;
-                foreach ((string item, int quantity) in passanger.Luggage)
-                {
-                    k += 1;
-                }
-                if (k > 2)
-                {
-                    moreThan2++;
+                if (passanger.Baggage.Count > 2)
+                    countMoreTwo++;
 
-                }
-                luggageCount += k;
-            }
-            if (moreThan2 != 0)
-
-                Console.WriteLine($"Количество пассажиров, имеющих более двух единиц багажа: {moreThan2}");
-            else
-            {
-                Console.WriteLine("Нет пассажиров, имеющих более двух единиц багажа");
+                countBaggage += passanger.Baggage.Count;
             }
 
-            Console.WriteLine();
+            Console.WriteLine($"Число пассажиров, имеющих более двух единиц багажа: {countMoreTwo}");
 
-            float median = ((float)luggageCount) / passengers.Length;
-            int moreThanMedian = 0;
+            float med = ((float)countBaggage) / passengers.Length; // Среднее число багажа на человека
+            int moreMed = 0; // Число пассажиров у которых багажа больше чем среднее число
             foreach (Passenger passanger in passengers)
             {
-                int k = 0;
-                foreach ((string item, int quantity) in passanger.Luggage)
-                {
-                    k += 1;
-                }
-                if (k > median)
-                {
-                    moreThanMedian++;
-
-                }
-
+                if (passanger.Baggage.Count > med)
+                    moreMed++;
             }
 
-            if (moreThan2 != 0)
-
-                Console.WriteLine($"Количество пассажиров, имеющих количество багажа больше среднего ({median}): {moreThanMedian}");
-            else
-            {
-                Console.WriteLine("Нет пассажиров, имеющих количество багажа больше среднего");
-            }
-
+            Console.WriteLine($"Число пассажиров, количество единиц багажа которых превосходит среднее число единиц багажа, составляющее {med}: {moreMed}");
         }
 
         // Заполнение текстового файла числа по одному в строку
@@ -345,8 +321,7 @@ namespace Programming_Language_Labs_CSharp
                 for (int i = 0; i < quantity; i++)
                 {
                     int number = random.Next(-(int)diapozon, (int)diapozon);
-                    writer.Write(number);
-                    writer.WriteLine("");
+                    writer.WriteLine(number);
                 }
                 writer.Close();
 
@@ -458,6 +433,8 @@ namespace Programming_Language_Labs_CSharp
                     writer.WriteLine(temp);
                 }
                 writer.Close();
+                Console.WriteLine("Создан текстовый файл, по пути: " + Path.GetFullPath(filePath));
+                Console.WriteLine("");
             }
             catch (Exception ex)
             {
@@ -521,6 +498,8 @@ namespace Programming_Language_Labs_CSharp
             AppropriatePassangers(filePath, FillBinaryFilePassangers(filePath));
             Console.WriteLine("-----------------------------------------------------------------------");
         }
+
+        // Вывод четвертого задания
         public static void Task4(string filePath)
         {
             Console.WriteLine("\n------------------------------ Задание 4 ------------------------------");
@@ -528,6 +507,8 @@ namespace Programming_Language_Labs_CSharp
             SumSquare(filePath);
             Console.WriteLine("-----------------------------------------------------------------------");
         }
+
+        // Вывод пятого задания
         public static void Task5(string filePath)
         {
             Console.WriteLine("\n------------------------------ Задание 5 ------------------------------");
@@ -535,6 +516,8 @@ namespace Programming_Language_Labs_CSharp
             Multiply(filePath);
             Console.WriteLine("-----------------------------------------------------------------------");
         }
+
+        // Вывод шестого задания
         public static void Task6(string filePath, string filePathOutput)
         {
             Console.WriteLine("\n------------------------------ Задание 6 ------------------------------");
