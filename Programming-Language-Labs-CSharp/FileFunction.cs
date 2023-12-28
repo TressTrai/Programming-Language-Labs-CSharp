@@ -65,6 +65,7 @@ namespace Programming_Language_Labs_CSharp
         // Вычисление произведение нечетных отрицательных чисел с бинарного файла
         private static void CalculateProductOfNegativeOddNumbers(string filePath)
         {
+            OutputBinaryFile(filePath);
             bool isPrint = false;
             try
             {
@@ -101,6 +102,8 @@ namespace Programming_Language_Labs_CSharp
         // Заполнение матрицы и вывод
         private static void FillMatrix(string filePath)
         {
+            OutputBinaryFile(filePath);
+
             int n = ReadFromUser.Int("Введите размерность матрицы nxn: ");
             int index = 0;
             int[,] matrix = new int[n, n];
@@ -137,6 +140,7 @@ namespace Programming_Language_Labs_CSharp
         // Поменять местами в каждом столбце минимальный и максимальный элементы
         private static int[,] ChangeMaxMinElInColumn(int[,] matrix, int n)
         {
+
             int iMax;
             int maxValue;
             int iMin;
@@ -395,6 +399,7 @@ namespace Programming_Language_Labs_CSharp
             int result = 1;
             string line;
             int el;
+            bool isPrint = false;
 
             try
             {
@@ -406,10 +411,14 @@ namespace Programming_Language_Labs_CSharp
                         if (int.TryParse(str, out el))
                         {
                             result *= el;
+                            isPrint = true;
                         }
                     }
                 }
                 reader.Close();
+                if (!isPrint)
+                    result = 0;
+       
                 Console.WriteLine($"Произведение элементов: {result}");
             }
             catch (Exception ex)
